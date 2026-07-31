@@ -7,7 +7,6 @@
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #222; }
-
     /* ── TOP UTILITY BAR ── */
     .top-bar {
       background: #fff;
@@ -21,7 +20,6 @@
     .top-bar .official { font-size: 12px; color: #333; }
     .how-you-know { color: #1a4a8e; font-size: 12px; cursor: pointer; background: none; border: none; text-decoration: underline; }
     .translate-btn { display: flex; align-items: center; gap: 6px; background: none; border: 1px solid #1a4a8e; color: #1a4a8e; padding: 5px 12px; border-radius: 4px; font-size: 13px; cursor: pointer; }
-
     /* ── HEADER ── */
     header { background: #1a4a8e; padding: 0 24px; }
     .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
@@ -29,20 +27,17 @@
     .search-box { display: flex; border: none; border-radius: 2px; overflow: hidden; }
     .search-box input { padding: 8px 14px; font-size: 14px; border: none; width: 220px; outline: none; }
     .search-box button { background: #fff; border: none; padding: 8px 14px; cursor: pointer; font-size: 16px; color: #1a4a8e; }
-
     /* ── NAV ── */
     nav { background: #1a4a8e; border-top: 1px solid rgba(255,255,255,0.2); }
     .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; }
     .nav-item { color: #fff; padding: 12px 16px; font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 4px; transition: background .15s; border: none; background: none; }
     .nav-item:hover { background: rgba(255,255,255,0.12); }
     .nav-item .caret { font-size: 10px; opacity: .8; }
-
     /* ── ALERT ── */
     .alert-bar { background: #fce8e8; border-bottom: 1px solid #e8b0b0; padding: 12px 24px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
     .alert-icon { font-size: 18px; color: #cc0000; margin-top: 1px; }
     .alert-bar strong { font-weight: 700; }
     .alert-bar a { color: #1a4a8e; font-weight: 700; }
-
     /* ── HERO ── */
     .hero { position: relative; background: linear-gradient(135deg, #1a1a2e 0%, #2d4a7e 60%, #e8a000 100%); min-height: 420px; display: flex; align-items: center; overflow: hidden; }
     .hero::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420"><defs><radialGradient id="g" cx="65%" cy="50%"><stop offset="0%25" stop-color="%23f0c040" stop-opacity=".4"/><stop offset="100%25" stop-color="%23000" stop-opacity="0"/></radialGradient></defs><rect fill="url(%23g)" width="800" height="420"/></svg>') right center / cover no-repeat; }
@@ -56,7 +51,6 @@
     .hero-link:hover { text-decoration: underline; }
     .auth-btn { background: #f0c020; color: #1a1a2e; border: none; padding: 11px 22px; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 3px; letter-spacing: .3px; transition: background .15s, transform .1s; display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; }
     .auth-btn:hover { background: #d9aa10; transform: translateY(-1px); }
-
     /* ── MODAL ── */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1000; align-items: center; justify-content: center; }
     .modal-overlay.open { display: flex; }
@@ -97,7 +91,6 @@
     .success-panel .user-badge { background: #eef3fb; border: 1px solid #b8cced; border-radius: 24px; padding: 8px 20px; font-size: 14px; font-weight: 600; color: #1a4a8e; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; }
     .dashboard-btn { background: #1a4a8e; color: #fff; border: none; padding: 12px 28px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; }
     .dashboard-btn:hover { background: #163d78; }
-
     /* ── SERVICES GRID ── */
     .services { max-width: 1200px; margin: 48px auto; padding: 0 24px; }
     .services h2 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 24px; border-left: 4px solid #f0c020; padding-left: 12px; }
@@ -111,7 +104,6 @@
     /* My Dashboard tile accent */
     .service-card.dashboard-tile { border-color: #1a4a8e; background: #eef3fb; }
     .service-card.dashboard-tile h3 { color: #1a4a8e; }
-
     /* ── DASHBOARD SECTION ── */
     #dashboard {
       display: none;
@@ -129,20 +121,32 @@
       font-size: 22px; font-weight: 700; color: #1a1a2e;
     }
     .dashboard-topbar .welcome span { color: #1a4a8e; }
+    .dashboard-topbar-actions { display: flex; align-items: center; gap: 10px; }
+    .collapse-btn {
+      background: none;
+      border: 2px solid rgba(26,74,142,0.35);
+      color: #1a4a8e;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .collapse-btn:hover { background: #dde8f8; border-color: #1a4a8e; }
     .signout-btn {
       background: none; border: 2px solid #cc3333; color: #cc3333;
       padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 700;
       cursor: pointer; transition: background .15s;
     }
     .signout-btn:hover { background: #fce8e8; }
-
     .dash-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 24px;
     }
     @media (max-width: 700px) { .dash-grid { grid-template-columns: 1fr; } }
-
     .dash-card {
       background: #fff;
       border: 1px solid #dde4ef;
@@ -158,7 +162,6 @@
       display: flex; align-items: center; gap: 8px;
     }
     .dash-card-body { padding: 24px 20px; }
-
     /* License info rows */
     .info-row {
       display: flex; align-items: flex-start;
@@ -187,7 +190,6 @@
       background: #fff8e6; color: #8a5a00; border: 1px solid #f0c96e;
       border-radius: 12px; padding: 3px 10px; font-size: 13px; font-weight: 600;
     }
-
     /* Vision upload */
     .upload-zone {
       border: 2px dashed #aabbdd;
@@ -212,7 +214,6 @@
       margin-left: auto; background: none; border: none; color: #cc3333;
       font-size: 16px; cursor: pointer; line-height: 1;
     }
-
     /* SMS section */
     .sms-toggle-row {
       display: flex; align-items: center; gap: 14px;
@@ -234,7 +235,6 @@
     .toggle-wrap input:checked + .toggle-slider::before { transform: translateX(20px); }
     .toggle-label { font-size: 14px; font-weight: 600; color: #333; }
     .toggle-sublabel { font-size: 12px; color: #777; }
-
     .phone-group { margin-top: 18px; display: none; }
     .phone-group.visible { display: block; }
     .phone-group label { font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 6px; }
@@ -246,7 +246,6 @@
     .sms-saved-note { font-size: 12px; color: #1a7a3c; margin-top: 8px; display: none; font-weight: 600; }
     .sms-saved-note.show { display: block; }
     .sms-info { margin-top: 18px; background: #f5f7fb; border-radius: 6px; padding: 12px 14px; font-size: 12px; color: #666; line-height: 1.6; border-left: 3px solid #1a4a8e; }
-
     /* ── FOOTER ── */
     footer { background: #1a1a2e; color: #aab; padding: 32px 24px; font-size: 13px; margin-top: 40px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; }
@@ -257,7 +256,6 @@
   </style>
 </head>
 <body>
-
 <!-- TOP BAR -->
 <div class="top-bar">
   <div class="left">
@@ -272,7 +270,6 @@
   </div>
   <button class="translate-btn">🌐 Translate ⌄</button>
 </div>
-
 <!-- HEADER -->
 <header>
   <div class="header-inner">
@@ -283,7 +280,6 @@
     </div>
   </div>
 </header>
-
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
@@ -297,7 +293,6 @@
     <button class="nav-item" id="myDmvNav" onclick="openModal()">MyDMV <span class="caret">▾</span></button>
   </div>
 </nav>
-
 <!-- ALERT BANNER -->
 <div class="alert-bar">
   <span class="alert-icon">⚠</span>
@@ -306,7 +301,6 @@
     See our "<a href="#">CLOSINGS</a>" page for more information.
   </div>
 </div>
-
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
@@ -320,7 +314,6 @@
         </div>
         <button class="auth-btn" onclick="openModal()">🔐 Authenticate / Sign In</button>
       </div>
-
       <!-- Post-auth: NY bridge graphic -->
       <div id="heroBridge" style="display:none; margin-top:16px;">
         <svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:6px;display:block;box-shadow:0 3px 14px rgba(0,0,0,0.45)">
@@ -467,7 +460,6 @@
     </div>
   </div>
 </section>
-
 <!-- ONLINE SERVICES -->
 <section class="services" id="servicesSection">
   <h2>Online Services</h2>
@@ -502,58 +494,52 @@
       <h3>Driver History</h3>
       <p>Order your driver record</p>
     </button>
-    <!-- My Dashboard tile — hidden until authenticated -->
+    <!-- My Dashboard tile — hidden until authenticated; toggles the dashboard section -->
     <button class="service-card dashboard-tile" id="btn-my-dashboard" type="button"
-            style="display:none;" onclick="scrollToDashboard()">
-      <span class="icon">👤</span>
+            style="display:none;" onclick="toggleDashboard()">
+      <span class="icon" id="dashTileIcon">👤</span>
       <h3>My Dashboard</h3>
-      <p>View your license &amp; profile</p>
+      <p id="dashTileDesc">Show your license &amp; profile ▼</p>
     </button>
   </div>
 </section>
-
 <!-- ══════════════════════════════════════
      POST-AUTH DASHBOARD
 ══════════════════════════════════════ -->
 <section id="dashboard">
   <div class="dashboard-inner">
-
     <div class="dashboard-topbar">
       <div class="welcome">My DMV Account &nbsp;·&nbsp; <span id="dashUserEmail"></span></div>
-      <button class="signout-btn" onclick="signOut()">Sign Out</button>
+      <div class="dashboard-topbar-actions">
+        <button class="collapse-btn" onclick="toggleDashboard()" title="Hide this section">▲ Hide Section</button>
+        <button class="signout-btn" onclick="signOut()">Sign Out</button>
+      </div>
     </div>
-
     <div class="dash-grid">
-
       <!-- LICENSE INFORMATION CARD -->
       <div class="dash-card">
         <div class="dash-card-header">🪪 License Information</div>
         <div class="dash-card-body">
-
           <div class="info-row">
             <div class="info-label">Driver's License</div>
             <div class="info-value readonly" id="dlNumber">DL-2847-9301-NY</div>
           </div>
-
           <div class="info-row">
             <div class="info-label">Expiration Date</div>
             <div class="info-value">
               <span class="badge-expiring" id="expirationDate">—</span>
             </div>
           </div>
-
           <div class="info-row">
             <div class="info-label">REAL ID</div>
             <div class="info-value">
               <span class="badge-enrolled">✓ Enrolled</span>
             </div>
           </div>
-
           <div class="info-row" style="border-bottom:none; flex-direction:column; gap:10px;">
             <div style="display:flex; align-items:center; gap:8px;">
               <div class="info-label" style="width:auto;">Vision Test Results</div>
             </div>
-
             <!-- Upload zone (shown when no file) -->
             <div class="upload-zone" id="uploadZone">
               <input type="file" id="visionFileInput" accept=".pdf,.jpg,.jpeg,.png,.gif,.bmp,.webp"
@@ -562,23 +548,19 @@
               <p>Click to upload your vision test results</p>
               <p class="hint">Accepted: PDF, JPG, PNG · Max 10 MB</p>
             </div>
-
             <!-- Success state (shown after upload) -->
             <div class="upload-success" id="uploadSuccess" style="display:none;">
               <span>✅</span>
               <span id="uploadedFileName">—</span>
               <button class="remove-file" onclick="removeVisionFile()" title="Remove file">✕</button>
             </div>
-
           </div>
         </div>
       </div>
-
       <!-- SMS NOTIFICATIONS CARD -->
       <div class="dash-card">
         <div class="dash-card-header">📱 SMS Notifications</div>
         <div class="dash-card-body">
-
           <div class="sms-toggle-row">
             <label class="toggle-wrap">
               <input type="checkbox" id="smsToggle" onchange="handleSmsToggle()" />
@@ -589,7 +571,6 @@
               <div class="toggle-sublabel">Receive renewal reminders &amp; alerts by text</div>
             </div>
           </div>
-
           <div class="phone-group" id="phoneGroup">
             <label for="phoneInput">Mobile Phone Number</label>
             <div class="phone-input-row">
@@ -599,20 +580,16 @@
             </div>
             <div class="sms-saved-note" id="smsSavedNote">✓ Phone number saved for this session.</div>
           </div>
-
           <div class="sms-info">
             <strong>Standard messaging rates apply.</strong> You may receive up to 4 messages per month.
             Reply STOP at any time to unsubscribe. Your number is used only for DMV notifications and
             is not shared with third parties.
           </div>
-
         </div>
       </div>
-
     </div>
   </div>
 </section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
@@ -651,14 +628,11 @@
     <a href="#" style="color:#f0c020">Accessibility</a>
   </div>
 </footer>
-
-
 <!-- ══════════════════════════════════════════
      AUTH MODAL
 ══════════════════════════════════════════ -->
 <div class="modal-overlay" id="authModal">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-
     <div class="modal-header">
       <div class="modal-header-left">
         <div class="ny-badge">NY<br>GOV</div>
@@ -666,7 +640,6 @@
       </div>
       <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
     </div>
-
     <!-- LOGIN FORM -->
     <div id="loginForm">
       <div class="modal-body">
@@ -698,7 +671,6 @@
         By signing in you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> of New York State.
       </div>
     </div>
-
     <!-- SUCCESS PANEL -->
     <div class="success-panel" id="successPanel">
       <div class="check-circle">✓</div>
@@ -707,7 +679,6 @@
       <div class="user-badge">👤 <span id="userEmailDisplay"></span></div>
       <button class="dashboard-btn" onclick="goToDashboard()">Go to My Dashboard →</button>
     </div>
-
     <!-- FORGOT PASSWORD -->
     <div id="forgotPanel" style="display:none;">
       <div class="modal-body">
@@ -722,7 +693,6 @@
         </div>
       </div>
     </div>
-
     <!-- CREATE ACCOUNT -->
     <div id="createPanel" style="display:none;">
       <div class="modal-body">
@@ -746,11 +716,8 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
-
-
 <script>
 // ════════════════════════════════════════════════
 //  SESSION STORAGE KEYS
@@ -762,12 +729,10 @@ const SK = {
   SMS_OPT:    'dmv_sms_optin',
   SMS_PHONE:  'dmv_sms_phone'
 };
-
 // Clear all session data when tab/window closes
 window.addEventListener('beforeunload', () => {
   Object.values(SK).forEach(k => sessionStorage.removeItem(k));
 });
-
 // ════════════════════════════════════════════════
 //  EXPIRATION DATE  (today + 60 calendar days)
 // ════════════════════════════════════════════════
@@ -776,7 +741,6 @@ function calcExpiration() {
   d.setDate(d.getDate() + 60);
   return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 }
-
 // ════════════════════════════════════════════════
 //  MODAL HELPERS
 // ════════════════════════════════════════════════
@@ -788,11 +752,10 @@ function showPanel(id) {
 function showLogin()  { showPanel('loginForm'); }
 function showForgot() { showPanel('forgotPanel'); }
 function showCreate() { showPanel('createPanel'); }
-
 function openModal() {
-  // If already authenticated, just scroll to dashboard
+  // If already authenticated, toggle the dashboard
   if (sessionStorage.getItem(SK.AUTH) === 'true') {
-    scrollToDashboard();
+    toggleDashboard();
     return;
   }
   showLogin();
@@ -800,7 +763,6 @@ function openModal() {
   document.getElementById('authModal').classList.add('open');
   setTimeout(() => document.getElementById('emailInput').focus(), 50);
 }
-
 function closeModal() {
   document.getElementById('authModal').classList.remove('open');
   showLogin();
@@ -809,12 +771,10 @@ function closeModal() {
   document.getElementById('passwordInput').value = '';
   document.getElementById('generalErrorGroup').style.display = 'none';
 }
-
 document.getElementById('authModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
-
 function clearErrors() {
   ['emailInput','passwordInput'].forEach(id => {
     document.getElementById(id).classList.remove('error');
@@ -823,13 +783,11 @@ function clearErrors() {
   document.getElementById('passwordError').classList.remove('show');
   document.getElementById('generalErrorGroup').style.display = 'none';
 }
-
 // ════════════════════════════════════════════════
 //  AUTHENTICATION
 // ════════════════════════════════════════════════
 const DEMO_EMAIL = 'demo@ny.gov';
 const DEMO_PASS  = 'password123';
-
 function handleLogin() {
   clearErrors();
   const email    = document.getElementById('emailInput').value.trim();
@@ -847,20 +805,16 @@ function handleLogin() {
     valid = false;
   }
   if (!valid) return;
-
   const btn = document.getElementById('loginBtn');
   btn.disabled = true;
   document.getElementById('loginBtnText').textContent = 'Authenticating…';
   document.getElementById('loginSpinner').style.display = 'block';
-
   setTimeout(() => {
     btn.disabled = false;
     document.getElementById('loginBtnText').textContent = 'Sign In Securely';
     document.getElementById('loginSpinner').style.display = 'none';
-
     // Mock auth: any valid email + password ≥ 6 chars succeeds
     const isValid = true;
-
     if (isValid) {
       sessionStorage.setItem(SK.AUTH, 'true');
       sessionStorage.setItem(SK.EMAIL, email);
@@ -872,14 +826,12 @@ function handleLogin() {
     }
   }, 1600);
 }
-
 function handleReset() {
   const email = document.getElementById('resetEmail').value.trim();
   if (!email) return;
   alert(`✉️  A password reset link has been sent to:\n\n${email}\n\nPlease check your inbox.`);
   showLogin();
 }
-
 function handleCreate() {
   const np = document.getElementById('newPassword').value;
   const cp = document.getElementById('confirmPassword').value;
@@ -896,37 +848,54 @@ function handleCreate() {
   showPanel('successPanel');
   setTimeout(goToDashboard, 1200);
 }
-
 // Enter key submits login
 ['emailInput','passwordInput'].forEach(id => {
   document.getElementById(id).addEventListener('keydown', e => {
     if (e.key === 'Enter') handleLogin();
   });
 });
-
 // ════════════════════════════════════════════════
-//  DASHBOARD
+//  DASHBOARD TOGGLE
+// ════════════════════════════════════════════════
+function toggleDashboard() {
+  const dash = document.getElementById('dashboard');
+  const isVisible = dash.classList.contains('visible');
+  if (isVisible) {
+    // Hide
+    dash.classList.remove('visible');
+    document.getElementById('dashTileDesc').textContent = 'Show your license & profile ▼';
+  } else {
+    // Show and scroll into view
+    dash.classList.add('visible');
+    document.getElementById('dashTileDesc').textContent = 'Hide your license & profile ▲';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      dash.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
+  }
+}
+// ════════════════════════════════════════════════
+//  DASHBOARD SETUP (no auto-show)
 // ════════════════════════════════════════════════
 function goToDashboard() {
   closeModal();
-  showDashboard();
-  // Wait two animation frames so the browser finishes rendering display:block before scrolling
-  requestAnimationFrame(() => requestAnimationFrame(scrollToDashboard));
+  setupDashboard();
+  // Scroll to services grid so user sees the My Dashboard tile
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.getElementById('servicesSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
 }
-
-function showDashboard() {
+// Populates dashboard data and reveals the tile — does NOT show the section
+function setupDashboard() {
   document.getElementById('heroSignIn').style.display = 'none';
   document.getElementById('heroBridge').style.display = 'block';
   const email = sessionStorage.getItem(SK.EMAIL) || '';
   document.getElementById('dashUserEmail').textContent = email;
   document.getElementById('expirationDate').textContent = calcExpiration();
-
   // Restore vision file
   const savedFile = sessionStorage.getItem(SK.VISION);
   if (savedFile) {
     showUploadSuccess(savedFile);
   }
-
   // Restore SMS state
   const smsOn = sessionStorage.getItem(SK.SMS_OPT) === 'true';
   document.getElementById('smsToggle').checked = smsOn;
@@ -938,16 +907,9 @@ function showDashboard() {
       document.getElementById('smsSavedNote').classList.add('show');
     }
   }
-
-  // Show dashboard section and My Dashboard tile
-  document.getElementById('dashboard').classList.add('visible');
+  // Reveal the My Dashboard tile (section itself stays hidden — default)
   document.getElementById('btn-my-dashboard').style.display = '';
 }
-
-function scrollToDashboard() {
-  document.getElementById('dashboard').scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-
 function signOut() {
   if (!confirm('Sign out of your MyDMV session?')) return;
   Object.values(SK).forEach(k => sessionStorage.removeItem(k));
@@ -955,6 +917,8 @@ function signOut() {
   document.getElementById('heroBridge').style.display = 'none';
   document.getElementById('dashboard').classList.remove('visible');
   document.getElementById('btn-my-dashboard').style.display = 'none';
+  // Reset tile text
+  document.getElementById('dashTileDesc').textContent = 'Show your license & profile ▼';
   // Reset vision upload UI
   document.getElementById('uploadZone').style.display = '';
   document.getElementById('uploadSuccess').style.display = 'none';
@@ -967,7 +931,6 @@ function signOut() {
   document.getElementById('smsSavedNote').classList.remove('show');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-
 // ════════════════════════════════════════════════
 //  VISION TEST UPLOAD
 // ════════════════════════════════════════════════
@@ -982,20 +945,17 @@ function handleVisionUpload(event) {
   sessionStorage.setItem(SK.VISION, file.name);
   showUploadSuccess(file.name);
 }
-
 function showUploadSuccess(filename) {
   document.getElementById('uploadZone').style.display = 'none';
   document.getElementById('uploadedFileName').textContent = filename;
   document.getElementById('uploadSuccess').style.display = 'flex';
 }
-
 function removeVisionFile() {
   sessionStorage.removeItem(SK.VISION);
   document.getElementById('uploadSuccess').style.display = 'none';
   document.getElementById('uploadZone').style.display = '';
   document.getElementById('visionFileInput').value = '';
 }
-
 // ════════════════════════════════════════════════
 //  SMS
 // ════════════════════════════════════════════════
@@ -1013,7 +973,6 @@ function handleSmsToggle() {
     document.getElementById('smsSavedNote').classList.remove('show');
   }
 }
-
 function savePhone() {
   const phone = document.getElementById('phoneInput').value.trim();
   if (phone.replace(/\D/g,'').length < 10) {
@@ -1023,7 +982,6 @@ function savePhone() {
   sessionStorage.setItem(SK.SMS_PHONE, phone);
   document.getElementById('smsSavedNote').classList.add('show');
 }
-
 function formatPhone(input) {
   let v = input.value.replace(/\D/g,'').substring(0, 10);
   if (v.length >= 7) v = `(${v.substring(0,3)}) ${v.substring(3,6)}-${v.substring(6)}`;
@@ -1033,13 +991,13 @@ function formatPhone(input) {
   // Hide saved note if number is edited
   document.getElementById('smsSavedNote').classList.remove('show');
 }
-
 // ════════════════════════════════════════════════
 //  ON LOAD — restore session if still valid
 // ════════════════════════════════════════════════
 (function restoreSession() {
   if (sessionStorage.getItem(SK.AUTH) === 'true') {
-    showDashboard();
+    setupDashboard();
+    // Section stays hidden by default — user clicks tile to reveal
   }
 })();
 </script>
@@ -1058,6 +1016,6 @@ function formatPhone(input) {
     deploymentId: '69c99017-4c58-43e6-9192-e20013d81d55'
   });
 </script>
-  
+
 </body>
 </html>
