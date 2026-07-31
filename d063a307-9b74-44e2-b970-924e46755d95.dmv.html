@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Department of Motor Vehicles</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #222; }
+    /* ── TOP UTILITY BAR ── */
+    .top-bar {
+      background: #fff;
+      border-bottom: 1px solid #ddd;
+      padding: 8px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 13px; color: #444;
+    }
+    .top-bar .left { display: flex; align-items: center; gap: 10px; }
+    .ny-logo { width: 44px; }
+    .top-bar .official { font-size: 12px; color: #333; }
+    .how-you-know { color: #1a4a8e; font-size: 12px; cursor: pointer; background: none; border: none; text-decoration: underline; }
+    .translate-btn { display: flex; align-items: center; gap: 6px; background: none; border: 1px solid #1a4a8e; color: #1a4a8e; padding: 5px 12px; border-radius: 4px; font-size: 13px; cursor: pointer; }
+    /* ── HEADER ── */
+    header { background: #1a4a8e; padding: 0 24px; }
+    .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
+    .site-title { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: .3px; }
+    .search-box { display: flex; border: none; border-radius: 2px; overflow: hidden; }
+    .search-box input { padding: 8px 14px; font-size: 14px; border: none; width: 220px; outline: none; }
+    .search-box button { background: #fff; border: none; padding: 8px 14px; cursor: pointer; font-size: 16px; color: #1a4a8e; }
+    /* ── NAV ── */
+    nav { background: #1a4a8e; border-top: 1px solid rgba(255,255,255,0.2); }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; }
+    .nav-item { color: #fff; padding: 12px 16px; font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 4px; transition: background .15s; border: none; background: none; }
+    .nav-item:hover { background: rgba(255,255,255,0.12); }
+    .nav-item .caret { font-size: 10px; opacity: .8; }
+    /* ── ALERT ── */
+    .alert-bar { background: #fce8e8; border-bottom: 1px solid #e8b0b0; padding: 12px 24px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
+    .alert-icon { font-size: 18px; color: #cc0000; margin-top: 1px; }
+    .alert-bar strong { font-weight: 700; }
+    .alert-bar a { color: #1a4a8e; font-weight: 700; }
+    /* ── HERO ── */
+    .hero { position: relative; background: linear-gradient(135deg, #1a1a2e 0%, #2d4a7e 60%, #e8a000 100%); min-height: 420px; display: flex; align-items: center; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420"><defs><radialGradient id="g" cx="65%" cy="50%"><stop offset="0%25" stop-color="%23f0c040" stop-opacity=".4"/><stop offset="100%25" stop-color="%23000" stop-opacity="0"/></radialGradient></defs><rect fill="url(%23g)" width="800" height="420"/></svg>') right center / cover no-repeat; }
+    .hero::after { content: ''; position: absolute; top: 30px; right: 180px; width: 340px; height: 340px; border-radius: 50% 40% 60% 30% / 30% 60% 40% 70%; background: rgba(240,180,20,.18); filter: blur(2px); }
+    .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 60px 24px; width: 100%; }
+    .hero-card { background: rgba(10,30,70,0.88); max-width: 460px; padding: 40px 36px; border-radius: 4px; }
+    .hero-card h1 { color: #fff; font-size: 28px; font-weight: 700; margin-bottom: 16px; line-height: 1.25; }
+    .hero-card p { color: #ccd6f0; font-size: 15px; line-height: 1.6; margin-bottom: 28px; }
+    .hero-links { display: flex; flex-direction: column; gap: 10px; }
+    .hero-link { color: #f0c020; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+    .hero-link:hover { text-decoration: underline; }
+    .auth-btn { background: #f0c020; color: #1a1a2e; border: none; padding: 11px 22px; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 3px; letter-spacing: .3px; transition: background .15s, transform .1s; display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; }
+    .auth-btn:hover { background: #d9aa10; transform: translateY(-1px); }
+    /* ── MODAL ── */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1000; align-items: center; justify-content: center; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: #fff; width: 100%; max-width: 440px; border-radius: 6px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); animation: slideUp .22s ease; }
+    @keyframes slideUp { from { opacity:0; transform: translateY(28px); } to { opacity:1; transform: translateY(0); } }
+    .modal-header { background: #1a4a8e; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .modal-header-left { display: flex; align-items: center; gap: 12px; }
+    .modal-header h2 { color: #fff; font-size: 18px; font-weight: 700; }
+    .modal-header .ny-badge { background: #fff; color: #1a4a8e; font-size: 10px; font-weight: 900; padding: 3px 6px; border-radius: 3px; text-transform: uppercase; letter-spacing: .5px; line-height: 1.3; text-align: center; }
+    .modal-close { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; opacity: .8; line-height: 1; }
+    .modal-close:hover { opacity: 1; }
+    .modal-body { padding: 28px 28px 24px; }
+    .modal-body .subtitle { font-size: 13px; color: #555; margin-bottom: 22px; line-height: 1.5; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
+    .form-group input { width: 100%; padding: 10px 13px; border: 1.5px solid #bbb; border-radius: 4px; font-size: 14px; color: #222; outline: none; transition: border-color .15s; }
+    .form-group input:focus { border-color: #1a4a8e; }
+    .form-group input.error { border-color: #cc0000; }
+    .form-error { font-size: 12px; color: #cc0000; margin-top: 4px; display: none; }
+    .form-error.show { display: block; }
+    .forgot-link { display: block; text-align: right; font-size: 12px; color: #1a4a8e; text-decoration: underline; cursor: pointer; margin-top: -10px; margin-bottom: 18px; }
+    .login-btn { width: 100%; background: #1a4a8e; color: #fff; border: none; padding: 12px; font-size: 15px; font-weight: 700; border-radius: 4px; cursor: pointer; letter-spacing: .3px; transition: background .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .login-btn:hover { background: #163d78; }
+    .login-btn:disabled { background: #7a9cc8; cursor: not-allowed; }
+    .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .divider { text-align: center; font-size: 13px; color: #888; margin: 18px 0; position: relative; }
+    .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 42%; height: 1px; background: #ddd; }
+    .divider::before { left: 0; } .divider::after { right: 0; }
+    .create-btn { width: 100%; background: #fff; color: #1a4a8e; border: 2px solid #1a4a8e; padding: 11px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; transition: background .15s; }
+    .create-btn:hover { background: #eef3fb; }
+    .modal-footer { background: #f5f7fb; padding: 12px 28px; font-size: 12px; color: #666; border-top: 1px solid #e4e8f0; }
+    .modal-footer a { color: #1a4a8e; text-decoration: underline; }
+    .success-panel { display: none; padding: 40px 28px; text-align: center; }
+    .success-panel .check-circle { width: 64px; height: 64px; background: #1a8e50; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: #fff; margin: 0 auto 20px; }
+    .success-panel h3 { font-size: 20px; color: #1a4a8e; margin-bottom: 8px; }
+    .success-panel p { font-size: 14px; color: #555; margin-bottom: 24px; line-height: 1.5; }
+    .success-panel .user-badge { background: #eef3fb; border: 1px solid #b8cced; border-radius: 24px; padding: 8px 20px; font-size: 14px; font-weight: 600; color: #1a4a8e; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+    .dashboard-btn { background: #1a4a8e; color: #fff; border: none; padding: 12px 28px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; }
+    .dashboard-btn:hover { background: #163d78; }
+    /* ── SERVICES GRID ── */
+    .services { max-width: 1200px; margin: 48px auto; padding: 0 24px; }
+    .services h2 { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 24px; border-left: 4px solid #f0c020; padding-left: 12px; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+    .service-card { border: 1px solid #dde4ef; border-radius: 6px; padding: 20px 16px; text-align: center; cursor: pointer; transition: box-shadow .15s, transform .1s; background: #fff; width: 100%; font-family: inherit; }
+    .service-card:hover { box-shadow: 0 4px 16px rgba(26,74,142,.12); transform: translateY(-2px); }
+    .service-card:focus { outline: 2px solid #1a4a8e; outline-offset: 2px; }
+    .service-card .icon { font-size: 28px; margin-bottom: 10px; display: block; }
+    .service-card h3 { font-size: 14px; font-weight: 600; color: #1a4a8e; }
+    .service-card p { font-size: 12px; color: #666; margin-top: 4px; }
+    /* My Dashboard tile accent */
+    .service-card.dashboard-tile { border-color: #1a4a8e; background: #eef3fb; }
+    .service-card.dashboard-tile h3 { color: #1a4a8e; }
+    /* ── DASHBOARD SECTION ── */
+    #dashboard {
+      display: none;
+      background: #f4f6fb;
+      border-top: 3px solid #1a4a8e;
+      padding: 40px 24px 56px;
+    }
+    #dashboard.visible { display: block; }
+    .dashboard-inner { max-width: 1200px; margin: 0 auto; }
+    .dashboard-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 32px; flex-wrap: wrap; gap: 12px;
+    }
+    .dashboard-topbar .welcome {
+      font-size: 22px; font-weight: 700; color: #1a1a2e;
+    }
+    .dashboard-topbar .welcome span { color: #1a4a8e; }
+    .dashboard-topbar-actions { display: flex; align-items: center; gap: 10px; }
+    .collapse-btn {
+      background: none;
+      border: 2px solid rgba(26,74,142,0.35);
+      color: #1a4a8e;
+      padding: 8px 16px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .collapse-btn:hover { background: #dde8f8; border-color: #1a4a8e; }
+    .signout-btn {
+      background: none; border: 2px solid #cc3333; color: #cc3333;
+      padding: 8px 18px; border-radius: 4px; font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: background .15s;
+    }
+    .signout-btn:hover { background: #fce8e8; }
+    .dash-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    @media (max-width: 700px) { .dash-grid { grid-template-columns: 1fr; } }
+    .dash-card {
+      background: #fff;
+      border: 1px solid #dde4ef;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .dash-card-header {
+      background: #1a4a8e;
+      color: #fff;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dash-card-body { padding: 24px 20px; }
+    /* License info rows */
+    .info-row {
+      display: flex; align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid #eef0f5;
+    }
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-label {
+      width: 140px; flex-shrink: 0;
+      font-size: 12px; font-weight: 600; color: #666;
+      text-transform: uppercase; letter-spacing: .4px;
+      padding-top: 2px;
+    }
+    .info-value {
+      flex: 1;
+      font-size: 15px; font-weight: 600; color: #1a1a2e;
+    }
+    .info-value.readonly { color: #444; }
+    .badge-enrolled {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #e6f4ec; color: #1a7a3c; border: 1px solid #9ed4b4;
+      border-radius: 12px; padding: 3px 10px; font-size: 13px; font-weight: 600;
+    }
+    .badge-expiring {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: #fff8e6; color: #8a5a00; border: 1px solid #f0c96e;
+      border-radius: 12px; padding: 3px 10px; font-size: 13px; font-weight: 600;
+    }
+    /* Vision upload */
+    .upload-zone {
+      border: 2px dashed #aabbdd;
+      border-radius: 6px;
+      padding: 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: background .15s, border-color .15s;
+      position: relative;
+    }
+    .upload-zone:hover { background: #eef3fb; border-color: #1a4a8e; }
+    .upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .upload-zone .upload-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+    .upload-zone p { font-size: 13px; color: #555; }
+    .upload-zone .hint { font-size: 11px; color: #888; margin-top: 4px; }
+    .upload-success {
+      display: flex; align-items: center; gap: 10px;
+      background: #e6f4ec; border: 1px solid #9ed4b4; border-radius: 6px;
+      padding: 12px 16px; font-size: 13px; color: #1a7a3c; font-weight: 600;
+    }
+    .upload-success .remove-file {
+      margin-left: auto; background: none; border: none; color: #cc3333;
+      font-size: 16px; cursor: pointer; line-height: 1;
+    }
+    /* SMS section */
+    .sms-toggle-row {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 0; border-bottom: 1px solid #eef0f5;
+    }
+    /* toggle switch */
+    .toggle-wrap { position: relative; width: 44px; height: 24px; flex-shrink: 0; }
+    .toggle-wrap input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .toggle-slider {
+      position: absolute; inset: 0; background: #ccc; border-radius: 24px;
+      cursor: pointer; transition: background .2s;
+    }
+    .toggle-slider::before {
+      content: ''; position: absolute; width: 18px; height: 18px;
+      background: #fff; border-radius: 50%; left: 3px; top: 3px;
+      transition: transform .2s;
+    }
+    .toggle-wrap input:checked + .toggle-slider { background: #1a8e50; }
+    .toggle-wrap input:checked + .toggle-slider::before { transform: translateX(20px); }
+    .toggle-label { font-size: 14px; font-weight: 600; color: #333; }
+    .toggle-sublabel { font-size: 12px; color: #777; }
+    .phone-group { margin-top: 18px; display: none; }
+    .phone-group.visible { display: block; }
+    .phone-group label { font-size: 13px; font-weight: 600; color: #333; display: block; margin-bottom: 6px; }
+    .phone-input-row { display: flex; gap: 10px; }
+    .phone-input-row input { flex: 1; padding: 10px 13px; border: 1.5px solid #bbb; border-radius: 4px; font-size: 14px; outline: none; transition: border-color .15s; }
+    .phone-input-row input:focus { border-color: #1a4a8e; }
+    .save-phone-btn { background: #1a4a8e; color: #fff; border: none; padding: 10px 18px; border-radius: 4px; font-size: 14px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background .15s; }
+    .save-phone-btn:hover { background: #163d78; }
+    .sms-saved-note { font-size: 12px; color: #1a7a3c; margin-top: 8px; display: none; font-weight: 600; }
+    .sms-saved-note.show { display: block; }
+    .sms-info { margin-top: 18px; background: #f5f7fb; border-radius: 6px; padding: 12px 14px; font-size: 12px; color: #666; line-height: 1.6; border-left: 3px solid #1a4a8e; }
+    /* ── FOOTER ── */
+    footer { background: #1a1a2e; color: #aab; padding: 32px 24px; font-size: 13px; margin-top: 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; }
+    .footer-col h4 { color: #fff; font-size: 13px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .5px; }
+    .footer-col a { display: block; color: #99a; text-decoration: none; margin-bottom: 6px; font-size: 13px; }
+    .footer-col a:hover { color: #f0c020; }
+    .footer-bottom { max-width: 1200px; margin: 24px auto 0; border-top: 1px solid #334; padding-top: 16px; font-size: 12px; color: #778; }
+  </style>
+</head>
+<body>
+<!-- TOP BAR -->
+<div class="top-bar">
+  <div class="left">
+    <svg class="ny-logo" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="60" height="60" rx="4" fill="#1a4a8e"/>
+      <text x="50%" y="34" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="white">NEW</text>
+      <text x="50%" y="46" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="white">YORK</text>
+      <text x="50%" y="58" text-anchor="middle" font-family="Arial" font-weight="900" font-size="11" fill="#f0c020">STATE</text>
+    </svg>
+    <span class="official">An official website of New York State.</span>
+    <button class="how-you-know">Here's how you know ⌄</button>
+  </div>
+  <button class="translate-btn">🌐 Translate ⌄</button>
+</div>
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="site-title">Department of Motor Vehicles</div>
+    <div class="search-box">
+      <input type="text" placeholder="Search DMV" />
+      <button>🔍</button>
+    </div>
+  </div>
+</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <button class="nav-item">Licenses, Permits &amp; IDs <span class="caret">▾</span></button>
+    <button class="nav-item">Vehicles <span class="caret">▾</span></button>
+    <button class="nav-item">Online Transactions <span class="caret">▾</span></button>
+    <button class="nav-item">Records <span class="caret">▾</span></button>
+    <button class="nav-item">Register to Vote <span class="caret">▾</span></button>
+    <button class="nav-item">Contact or Visit <span class="caret">▾</span></button>
+    <button class="nav-item">About Us <span class="caret">▾</span></button>
+    <button class="nav-item" id="myDmvNav" onclick="openModal()">MyDMV <span class="caret">▾</span></button>
+  </div>
+</nav>
+<!-- ALERT BANNER -->
+<div class="alert-bar">
+  <span class="alert-icon">⚠</span>
+  <div>
+    <strong>ALERT</strong> &nbsp;There are currently road test cancellations or DMV offices closed for in-person services.
+    See our "<a href="#">CLOSINGS</a>" page for more information.
+  </div>
+</div>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-card">
+      <h1>Ready to Serve New York Better</h1>
+      <p>New York State DMV has upgraded our technology to make it easier to serve you better. Our modernized system offers a more streamlined service and increased responsiveness, making it faster and easier to use.</p>
+      <div id="heroSignIn">
+        <div class="hero-links">
+          <a class="hero-link" onclick="openModal()"><span>→</span> SIGN INTO NY.GOV ID</a>
+          <a class="hero-link" onclick="openModal()"><span>→</span> CREATE A NEW NY.GOV ID</a>
+        </div>
+        <button class="auth-btn" onclick="openModal()">🔐 Authenticate / Sign In</button>
+      </div>
+      <!-- Post-auth: NY bridge graphic -->
+      <div id="heroBridge" style="display:none; margin-top:16px;">
+        <svg viewBox="0 0 400 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;border-radius:6px;display:block;box-shadow:0 3px 14px rgba(0,0,0,0.45)">
+          <defs>
+            <linearGradient id="bSky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#2060a0"/><stop offset="100%" stop-color="#6aaad8"/>
+            </linearGradient>
+            <linearGradient id="bWater" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a4d68"/><stop offset="100%" stop-color="#0a2030"/>
+            </linearGradient>
+          </defs>
+          <!-- Sky -->
+          <rect width="400" height="170" fill="url(#bSky)"/>
+          <!-- Clouds -->
+          <ellipse cx="55" cy="22" rx="28" ry="10" fill="rgba(255,255,255,0.22)"/>
+          <ellipse cx="74" cy="17" rx="22" ry="8" fill="rgba(255,255,255,0.18)"/>
+          <ellipse cx="310" cy="26" rx="32" ry="11" fill="rgba(255,255,255,0.18)"/>
+          <ellipse cx="336" cy="19" rx="24" ry="9" fill="rgba(255,255,255,0.14)"/>
+          <!-- NYC skyline silhouette — left -->
+          <g fill="#1a3550" opacity="0.75">
+            <rect x="0" y="78" width="8" height="48"/><rect x="6" y="65" width="11" height="61"/>
+            <rect x="15" y="73" width="7" height="53"/><rect x="20" y="55" width="13" height="71"/>
+            <rect x="31" y="70" width="9" height="56"/><rect x="38" y="76" width="8" height="50"/>
+            <rect x="44" y="62" width="10" height="64"/><rect x="52" y="72" width="8" height="54"/>
+            <rect x="58" y="80" width="9" height="46"/>
+          </g>
+          <!-- NYC skyline silhouette — right -->
+          <g fill="#1a3550" opacity="0.75">
+            <rect x="333" y="80" width="9" height="46"/><rect x="340" y="72" width="8" height="54"/>
+            <rect x="346" y="62" width="10" height="64"/><rect x="354" y="76" width="8" height="50"/>
+            <rect x="360" y="70" width="9" height="56"/><rect x="367" y="55" width="13" height="71"/>
+            <rect x="378" y="73" width="7" height="53"/><rect x="383" y="65" width="11" height="61"/>
+            <rect x="392" y="78" width="8" height="48"/>
+          </g>
+          <!-- Water -->
+          <rect x="0" y="122" width="400" height="48" fill="url(#bWater)"/>
+          <line x1="15" y1="130" x2="90" y2="130" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+          <line x1="170" y1="137" x2="240" y2="137" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+          <line x1="305" y1="130" x2="385" y2="130" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+          <line x1="40" y1="149" x2="140" y2="149" stroke="rgba(255,255,255,0.07)" stroke-width="1"/>
+          <!-- Tower piers (water-level bases) -->
+          <rect x="107" y="112" width="20" height="22" fill="#9a8860"/>
+          <rect x="273" y="112" width="20" height="22" fill="#9a8860"/>
+          <!-- LEFT TOWER -->
+          <rect x="108" y="12" width="18" height="108" fill="#c0aa7a" rx="1"/>
+          <rect x="105" y="7" width="24" height="7" fill="#c0aa7a" rx="1"/>
+          <rect x="104" y="68" width="26" height="4" fill="#a89060"/>
+          <path d="M 113,22 L 113,41 Q 117,49 121,41 L 121,22 Z" fill="rgba(40,70,110,0.55)"/>
+          <path d="M 113,73 L 113,88 Q 117,94 121,88 L 121,73 Z" fill="rgba(40,70,110,0.55)"/>
+          <rect x="111" y="4" width="12" height="5" fill="#a89060"/>
+          <!-- RIGHT TOWER -->
+          <rect x="274" y="12" width="18" height="108" fill="#c0aa7a" rx="1"/>
+          <rect x="271" y="7" width="24" height="7" fill="#c0aa7a" rx="1"/>
+          <rect x="270" y="68" width="26" height="4" fill="#a89060"/>
+          <path d="M 279,22 L 279,41 Q 283,49 287,41 L 287,22 Z" fill="rgba(40,70,110,0.55)"/>
+          <path d="M 279,73 L 279,88 Q 283,94 287,88 L 287,73 Z" fill="rgba(40,70,110,0.55)"/>
+          <rect x="277" y="4" width="12" height="5" fill="#a89060"/>
+          <!-- MAIN CABLES -->
+          <path d="M 4,116 Q 117,8 200,74 Q 283,8 396,116" fill="none" stroke="#445533" stroke-width="2.5" stroke-linecap="round"/>
+          <path d="M 4,119 Q 117,11 200,77 Q 283,11 396,119" fill="none" stroke="#334422" stroke-width="1.8" stroke-linecap="round" opacity="0.65"/>
+          <!-- HANGERS — left span -->
+          <line x1="32" y1="85" x2="32" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="52" y1="72" x2="52" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="70" y1="62" x2="70" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="88" y1="53" x2="88" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="105" y1="44" x2="105" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="120" y1="37" x2="120" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="136" y1="33" x2="136" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="152" y1="32" x2="152" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="168" y1="34" x2="168" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="184" y1="40" x2="184" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <!-- HANGERS — right span -->
+          <line x1="216" y1="40" x2="216" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="232" y1="34" x2="232" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="248" y1="32" x2="248" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="264" y1="33" x2="264" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="280" y1="37" x2="280" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="295" y1="44" x2="295" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="312" y1="53" x2="312" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="330" y1="62" x2="330" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="348" y1="72" x2="348" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <line x1="368" y1="85" x2="368" y2="104" stroke="#556644" stroke-width="0.8"/>
+          <!-- ROAD DECK -->
+          <rect x="0" y="104" width="400" height="15" fill="#2d2d2d"/>
+          <rect x="0" y="104" width="400" height="1.5" fill="rgba(255,255,255,0.12)"/>
+          <line x1="0" y1="111.5" x2="400" y2="111.5" stroke="#f0c020" stroke-width="1.5" stroke-dasharray="16,9"/>
+          <line x1="0" y1="107.5" x2="400" y2="107.5" stroke="rgba(255,255,255,0.2)" stroke-width="0.7" stroke-dasharray="10,10"/>
+          <!-- CARS (wheel bottom at ~y=104) -->
+          <!-- Red sedan, right -->
+          <g transform="translate(16,89)">
+            <rect x="0" y="4" width="30" height="10" fill="#c03030" rx="2"/>
+            <rect x="4" y="0" width="20" height="7" fill="#d04040" rx="2"/>
+            <rect x="6" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <rect x="14" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <circle cx="6" cy="14" r="2.5" fill="#111"/><circle cx="6" cy="14" r="1.2" fill="#2a2a2a"/>
+            <circle cx="24" cy="14" r="2.5" fill="#111"/><circle cx="24" cy="14" r="1.2" fill="#2a2a2a"/>
+            <rect x="27" y="6" width="3" height="2" fill="#ffee88" rx="0.5"/>
+          </g>
+          <!-- Yellow taxi, right -->
+          <g transform="translate(100,89)">
+            <rect x="0" y="4" width="31" height="10" fill="#f0c020" rx="2"/>
+            <rect x="4" y="0" width="21" height="7" fill="#f5cc30" rx="2"/>
+            <rect x="6" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <rect x="15" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <rect x="8" y="4" width="13" height="3" fill="#cc0000" rx="0.5"/>
+            <circle cx="6" cy="14" r="2.5" fill="#111"/><circle cx="6" cy="14" r="1.2" fill="#2a2a2a"/>
+            <circle cx="25" cy="14" r="2.5" fill="#111"/><circle cx="25" cy="14" r="1.2" fill="#2a2a2a"/>
+            <rect x="28" y="6" width="3" height="2" fill="#ffee88" rx="0.5"/>
+          </g>
+          <!-- White SUV, right -->
+          <g transform="translate(186,87)">
+            <rect x="0" y="4" width="34" height="12" fill="#d5d5d5" rx="2"/>
+            <rect x="4" y="0" width="24" height="9" fill="#e5e5e5" rx="2"/>
+            <rect x="6" y="1" width="7" height="5" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <rect x="16" y="1" width="7" height="5" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <circle cx="7" cy="16" r="3" fill="#111"/><circle cx="7" cy="16" r="1.5" fill="#2a2a2a"/>
+            <circle cx="27" cy="16" r="3" fill="#111"/><circle cx="27" cy="16" r="1.5" fill="#2a2a2a"/>
+            <rect x="31" y="7" width="3" height="2.5" fill="#ffee88" rx="0.5"/>
+          </g>
+          <!-- Blue sedan, right -->
+          <g transform="translate(276,89)">
+            <rect x="0" y="4" width="30" height="10" fill="#1e4a99" rx="2"/>
+            <rect x="4" y="0" width="20" height="7" fill="#2d5aaa" rx="2"/>
+            <rect x="6" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <rect x="14" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <circle cx="6" cy="14" r="2.5" fill="#111"/><circle cx="6" cy="14" r="1.2" fill="#2a2a2a"/>
+            <circle cx="24" cy="14" r="2.5" fill="#111"/><circle cx="24" cy="14" r="1.2" fill="#2a2a2a"/>
+            <rect x="27" y="6" width="3" height="2" fill="#ffee88" rx="0.5"/>
+          </g>
+          <!-- Green car, going LEFT (oncoming) -->
+          <g transform="translate(363,89) scale(-1,1) translate(-30,0)">
+            <rect x="0" y="4" width="30" height="10" fill="#226633" rx="2"/>
+            <rect x="4" y="0" width="20" height="7" fill="#337744" rx="2"/>
+            <rect x="6" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <rect x="14" y="1" width="6" height="4" fill="#99bbcc" opacity="0.9" rx="1"/>
+            <circle cx="6" cy="14" r="2.5" fill="#111"/><circle cx="6" cy="14" r="1.2" fill="#2a2a2a"/>
+            <circle cx="24" cy="14" r="2.5" fill="#111"/><circle cx="24" cy="14" r="1.2" fill="#2a2a2a"/>
+            <rect x="27" y="6" width="3" height="2" fill="#ff6655" rx="0.5"/>
+          </g>
+          <!-- Label -->
+          <text x="200" y="164" text-anchor="middle" font-family="Georgia,serif" font-size="8" fill="rgba(180,210,240,0.65)" letter-spacing="2.5">NEW YORK STATE DEPARTMENT OF MOTOR VEHICLES</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ONLINE SERVICES -->
+<section class="services" id="servicesSection">
+  <h2>Online Services</h2>
+  <div class="services-grid" id="servicesGrid">
+    <button class="service-card" id="btn-renew-license" type="button">
+      <span class="icon">🪪</span>
+      <h3>Renew License</h3>
+      <p>Renew your driver license online</p>
+    </button>
+    <button class="service-card" id="btn-register-vehicle" type="button">
+      <span class="icon">🚗</span>
+      <h3>Register Vehicle</h3>
+      <p>Register or renew registration</p>
+    </button>
+    <button class="service-card" id="btn-real-id" type="button">
+      <span class="icon">📋</span>
+      <h3>Get REAL ID</h3>
+      <p>Apply for a REAL ID compliant card</p>
+    </button>
+    <button class="service-card" id="btn-address-change" type="button">
+      <span class="icon">🔄</span>
+      <h3>Address Change</h3>
+      <p>Update your address on record</p>
+    </button>
+    <button class="service-card" id="btn-custom-plates" type="button">
+      <span class="icon">🏆</span>
+      <h3>Custom Plates</h3>
+      <p>Personalize your license plate</p>
+    </button>
+    <button class="service-card" id="btn-driver-history" type="button">
+      <span class="icon">📝</span>
+      <h3>Driver History</h3>
+      <p>Order your driver record</p>
+    </button>
+    <!-- My Dashboard tile — hidden until authenticated; toggles the dashboard section -->
+    <button class="service-card dashboard-tile" id="btn-my-dashboard" type="button"
+            style="display:none;" onclick="toggleDashboard()">
+      <span class="icon" id="dashTileIcon">👤</span>
+      <h3>My Dashboard</h3>
+      <p id="dashTileDesc">Show your license &amp; profile ▼</p>
+    </button>
+  </div>
+</section>
+<!-- ══════════════════════════════════════
+     POST-AUTH DASHBOARD
+══════════════════════════════════════ -->
+<section id="dashboard">
+  <div class="dashboard-inner">
+    <div class="dashboard-topbar">
+      <div class="welcome">My DMV Account &nbsp;·&nbsp; <span id="dashUserEmail"></span></div>
+      <div class="dashboard-topbar-actions">
+        <button class="collapse-btn" onclick="toggleDashboard()" title="Hide this section">▲ Hide Section</button>
+        <button class="signout-btn" onclick="signOut()">Sign Out</button>
+      </div>
+    </div>
+    <div class="dash-grid">
+      <!-- LICENSE INFORMATION CARD -->
+      <div class="dash-card">
+        <div class="dash-card-header">🪪 License Information</div>
+        <div class="dash-card-body">
+          <div class="info-row">
+            <div class="info-label">Driver's License</div>
+            <div class="info-value readonly" id="dlNumber">DL-2847-9301-NY</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Expiration Date</div>
+            <div class="info-value">
+              <span class="badge-expiring" id="expirationDate">—</span>
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">REAL ID</div>
+            <div class="info-value">
+              <span class="badge-enrolled">✓ Enrolled</span>
+            </div>
+          </div>
+          <div class="info-row" style="border-bottom:none; flex-direction:column; gap:10px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <div class="info-label" style="width:auto;">Vision Test Results</div>
+            </div>
+            <!-- Upload zone (shown when no file) -->
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" id="visionFileInput" accept=".pdf,.jpg,.jpeg,.png,.gif,.bmp,.webp"
+                     onchange="handleVisionUpload(event)" />
+              <span class="upload-icon">📄</span>
+              <p>Click to upload your vision test results</p>
+              <p class="hint">Accepted: PDF, JPG, PNG · Max 10 MB</p>
+            </div>
+            <!-- Success state (shown after upload) -->
+            <div class="upload-success" id="uploadSuccess" style="display:none;">
+              <span>✅</span>
+              <span id="uploadedFileName">—</span>
+              <button class="remove-file" onclick="removeVisionFile()" title="Remove file">✕</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SMS NOTIFICATIONS CARD -->
+      <div class="dash-card">
+        <div class="dash-card-header">📱 SMS Notifications</div>
+        <div class="dash-card-body">
+          <div class="sms-toggle-row">
+            <label class="toggle-wrap">
+              <input type="checkbox" id="smsToggle" onchange="handleSmsToggle()" />
+              <span class="toggle-slider"></span>
+            </label>
+            <div>
+              <div class="toggle-label">Opt in to SMS updates</div>
+              <div class="toggle-sublabel">Receive renewal reminders &amp; alerts by text</div>
+            </div>
+          </div>
+          <div class="phone-group" id="phoneGroup">
+            <label for="phoneInput">Mobile Phone Number</label>
+            <div class="phone-input-row">
+              <input type="tel" id="phoneInput" placeholder="(555) 555-5555"
+                     oninput="formatPhone(this)" maxlength="14" />
+              <button class="save-phone-btn" onclick="savePhone()">Save</button>
+            </div>
+            <div class="sms-saved-note" id="smsSavedNote">✓ Phone number saved for this session.</div>
+          </div>
+          <div class="sms-info">
+            <strong>Standard messaging rates apply.</strong> You may receive up to 4 messages per month.
+            Reply STOP at any time to unsubscribe. Your number is used only for DMV notifications and
+            is not shared with third parties.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Licenses &amp; IDs</h4>
+      <a href="#">Driver License</a>
+      <a href="#">Non-Driver ID</a>
+      <a href="#">REAL ID</a>
+      <a href="#">Enhanced ID</a>
+    </div>
+    <div class="footer-col">
+      <h4>Vehicles</h4>
+      <a href="#">Register a Vehicle</a>
+      <a href="#">Title a Vehicle</a>
+      <a href="#">Custom Plates</a>
+      <a href="#">Junking a Vehicle</a>
+    </div>
+    <div class="footer-col">
+      <h4>Online Services</h4>
+      <a href="#">MyDMV Portal</a>
+      <a href="#">Online Transactions</a>
+      <a href="#">DMV Chat</a>
+      <a href="#">Accessibility</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="#">Find a DMV Office</a>
+      <a href="#">Make an Appointment</a>
+      <a href="#">Contact Us</a>
+      <a href="#">About DMV</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2026 New York State Department of Motor Vehicles ·
+    <a href="#" style="color:#f0c020">Privacy Policy</a> ·
+    <a href="#" style="color:#f0c020">Accessibility</a>
+  </div>
+</footer>
+<!-- ══════════════════════════════════════════
+     AUTH MODAL
+══════════════════════════════════════════ -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="ny-badge">NY<br>GOV</div>
+        <h2 id="modalTitle">Sign in to MyDMV</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    </div>
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+      <div class="modal-body">
+        <p class="subtitle">Sign in with your NY.gov ID to access your DMV account, view documents, and complete transactions.</p>
+        <div class="form-group">
+          <label for="emailInput">NY.gov ID (Email Address)</label>
+          <input type="email" id="emailInput" placeholder="you@example.com" autocomplete="email" />
+          <span class="form-error" id="emailError">Please enter a valid email address.</span>
+        </div>
+        <div class="form-group">
+          <label for="passwordInput">Password</label>
+          <input type="password" id="passwordInput" placeholder="Enter your password" autocomplete="current-password" />
+          <span class="form-error" id="passwordError">Password must be at least 6 characters.</span>
+        </div>
+        <a class="forgot-link" onclick="showForgot()">Forgot your password?</a>
+        <div class="form-group" id="generalErrorGroup" style="display:none;">
+          <div style="background:#fce8e8;border:1px solid #e8b0b0;border-radius:4px;padding:10px 14px;font-size:13px;color:#cc0000;">
+            ⚠ &nbsp;<strong>Authentication failed.</strong> Invalid email or password. Please try again.
+          </div>
+        </div>
+        <button class="login-btn" id="loginBtn" onclick="handleLogin()">
+          <span id="loginBtnText">Sign In Securely</span>
+          <div class="spinner" id="loginSpinner"></div>
+        </button>
+        <div class="divider">or</div>
+        <button class="create-btn" onclick="showCreate()">Create a New NY.gov ID</button>
+      </div>
+      <div class="modal-footer">
+        By signing in you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> of New York State.
+      </div>
+    </div>
+    <!-- SUCCESS PANEL -->
+    <div class="success-panel" id="successPanel">
+      <div class="check-circle">✓</div>
+      <h3>Authentication Successful</h3>
+      <p>Welcome back! You are now securely signed in to your MyDMV account.</p>
+      <div class="user-badge">👤 <span id="userEmailDisplay"></span></div>
+      <button class="dashboard-btn" onclick="goToDashboard()">Go to My Dashboard →</button>
+    </div>
+    <!-- FORGOT PASSWORD -->
+    <div id="forgotPanel" style="display:none;">
+      <div class="modal-body">
+        <p class="subtitle">Enter your email address and we'll send you a link to reset your password.</p>
+        <div class="form-group">
+          <label for="resetEmail">NY.gov ID (Email Address)</label>
+          <input type="email" id="resetEmail" placeholder="you@example.com" />
+        </div>
+        <button class="login-btn" onclick="handleReset()">Send Reset Link</button>
+        <div style="margin-top:16px;text-align:center;">
+          <a style="font-size:13px;color:#1a4a8e;cursor:pointer;text-decoration:underline;" onclick="showLogin()">← Back to Sign In</a>
+        </div>
+      </div>
+    </div>
+    <!-- CREATE ACCOUNT -->
+    <div id="createPanel" style="display:none;">
+      <div class="modal-body">
+        <p class="subtitle">Create your free NY.gov ID to access all New York State online services.</p>
+        <div class="form-group">
+          <label for="newEmail">Email Address</label>
+          <input type="email" id="newEmail" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label for="newPassword">Choose a Password</label>
+          <input type="password" id="newPassword" placeholder="At least 8 characters" />
+        </div>
+        <div class="form-group">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" placeholder="Re-enter password" />
+          <span class="form-error" id="confirmError">Passwords do not match.</span>
+        </div>
+        <button class="login-btn" onclick="handleCreate()">Create Account</button>
+        <div style="margin-top:16px;text-align:center;">
+          <a style="font-size:13px;color:#1a4a8e;cursor:pointer;text-decoration:underline;" onclick="showLogin()">← Back to Sign In</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// ════════════════════════════════════════════════
+//  SESSION STORAGE KEYS
+// ════════════════════════════════════════════════
+const SK = {
+  AUTH:       'dmv_authenticated',
+  EMAIL:      'dmv_user_email',
+  VISION:     'dmv_vision_filename',
+  SMS_OPT:    'dmv_sms_optin',
+  SMS_PHONE:  'dmv_sms_phone'
+};
+// Clear all session data when tab/window closes
+window.addEventListener('beforeunload', () => {
+  Object.values(SK).forEach(k => sessionStorage.removeItem(k));
+});
+// ════════════════════════════════════════════════
+//  EXPIRATION DATE  (today + 60 calendar days)
+// ════════════════════════════════════════════════
+function calcExpiration() {
+  const d = new Date();
+  d.setDate(d.getDate() + 60);
+  return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+}
+// ════════════════════════════════════════════════
+//  MODAL HELPERS
+// ════════════════════════════════════════════════
+function showPanel(id) {
+  ['loginForm','successPanel','forgotPanel','createPanel'].forEach(p => {
+    document.getElementById(p).style.display = (p === id) ? 'block' : 'none';
+  });
+}
+function showLogin()  { showPanel('loginForm'); }
+function showForgot() { showPanel('forgotPanel'); }
+function showCreate() { showPanel('createPanel'); }
+function openModal() {
+  // If already authenticated, toggle the dashboard
+  if (sessionStorage.getItem(SK.AUTH) === 'true') {
+    toggleDashboard();
+    return;
+  }
+  showLogin();
+  clearErrors();
+  document.getElementById('authModal').classList.add('open');
+  setTimeout(() => document.getElementById('emailInput').focus(), 50);
+}
+function closeModal() {
+  document.getElementById('authModal').classList.remove('open');
+  showLogin();
+  clearErrors();
+  document.getElementById('emailInput').value = '';
+  document.getElementById('passwordInput').value = '';
+  document.getElementById('generalErrorGroup').style.display = 'none';
+}
+document.getElementById('authModal').addEventListener('click', function(e) {
+  if (e.target === this) closeModal();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+function clearErrors() {
+  ['emailInput','passwordInput'].forEach(id => {
+    document.getElementById(id).classList.remove('error');
+  });
+  document.getElementById('emailError').classList.remove('show');
+  document.getElementById('passwordError').classList.remove('show');
+  document.getElementById('generalErrorGroup').style.display = 'none';
+}
+// ════════════════════════════════════════════════
+//  AUTHENTICATION
+// ════════════════════════════════════════════════
+const DEMO_EMAIL = 'demo@ny.gov';
+const DEMO_PASS  = 'password123';
+function handleLogin() {
+  clearErrors();
+  const email    = document.getElementById('emailInput').value.trim();
+  const password = document.getElementById('passwordInput').value;
+  let valid = true;
+  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRx.test(email)) {
+    document.getElementById('emailInput').classList.add('error');
+    document.getElementById('emailError').classList.add('show');
+    valid = false;
+  }
+  if (password.length < 6) {
+    document.getElementById('passwordInput').classList.add('error');
+    document.getElementById('passwordError').classList.add('show');
+    valid = false;
+  }
+  if (!valid) return;
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true;
+  document.getElementById('loginBtnText').textContent = 'Authenticating…';
+  document.getElementById('loginSpinner').style.display = 'block';
+  setTimeout(() => {
+    btn.disabled = false;
+    document.getElementById('loginBtnText').textContent = 'Sign In Securely';
+    document.getElementById('loginSpinner').style.display = 'none';
+    // Mock auth: any valid email + password ≥ 6 chars succeeds
+    const isValid = true;
+    if (isValid) {
+      sessionStorage.setItem(SK.AUTH, 'true');
+      sessionStorage.setItem(SK.EMAIL, email);
+      document.getElementById('userEmailDisplay').textContent = email;
+      showPanel('successPanel');
+      setTimeout(goToDashboard, 1200);
+    } else {
+      document.getElementById('generalErrorGroup').style.display = 'block';
+    }
+  }, 1600);
+}
+function handleReset() {
+  const email = document.getElementById('resetEmail').value.trim();
+  if (!email) return;
+  alert(`✉️  A password reset link has been sent to:\n\n${email}\n\nPlease check your inbox.`);
+  showLogin();
+}
+function handleCreate() {
+  const np = document.getElementById('newPassword').value;
+  const cp = document.getElementById('confirmPassword').value;
+  if (np !== cp) {
+    document.getElementById('confirmError').classList.add('show');
+    return;
+  }
+  document.getElementById('confirmError').classList.remove('show');
+  const email = document.getElementById('newEmail').value.trim();
+  if (!email) return;
+  sessionStorage.setItem(SK.AUTH, 'true');
+  sessionStorage.setItem(SK.EMAIL, email);
+  document.getElementById('userEmailDisplay').textContent = email;
+  showPanel('successPanel');
+  setTimeout(goToDashboard, 1200);
+}
+// Enter key submits login
+['emailInput','passwordInput'].forEach(id => {
+  document.getElementById(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') handleLogin();
+  });
+});
+// ════════════════════════════════════════════════
+//  DASHBOARD TOGGLE
+// ════════════════════════════════════════════════
+function toggleDashboard() {
+  const dash = document.getElementById('dashboard');
+  const isVisible = dash.classList.contains('visible');
+  if (isVisible) {
+    // Hide
+    dash.classList.remove('visible');
+    document.getElementById('dashTileDesc').textContent = 'Show your license & profile ▼';
+  } else {
+    // Show and scroll into view
+    dash.classList.add('visible');
+    document.getElementById('dashTileDesc').textContent = 'Hide your license & profile ▲';
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      dash.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }));
+  }
+}
+// ════════════════════════════════════════════════
+//  DASHBOARD SETUP (no auto-show)
+// ════════════════════════════════════════════════
+function goToDashboard() {
+  closeModal();
+  setupDashboard();
+  // Scroll to services grid so user sees the My Dashboard tile
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.getElementById('servicesSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }));
+}
+// Populates dashboard data and reveals the tile — does NOT show the section
+function setupDashboard() {
+  document.getElementById('heroSignIn').style.display = 'none';
+  document.getElementById('heroBridge').style.display = 'block';
+  const email = sessionStorage.getItem(SK.EMAIL) || '';
+  document.getElementById('dashUserEmail').textContent = email;
+  document.getElementById('expirationDate').textContent = calcExpiration();
+  // Restore vision file
+  const savedFile = sessionStorage.getItem(SK.VISION);
+  if (savedFile) {
+    showUploadSuccess(savedFile);
+  }
+  // Restore SMS state
+  const smsOn = sessionStorage.getItem(SK.SMS_OPT) === 'true';
+  document.getElementById('smsToggle').checked = smsOn;
+  if (smsOn) {
+    document.getElementById('phoneGroup').classList.add('visible');
+    const savedPhone = sessionStorage.getItem(SK.SMS_PHONE);
+    if (savedPhone) {
+      document.getElementById('phoneInput').value = savedPhone;
+      document.getElementById('smsSavedNote').classList.add('show');
+    }
+  }
+  // Reveal the My Dashboard tile (section itself stays hidden — default)
+  document.getElementById('btn-my-dashboard').style.display = '';
+}
+function signOut() {
+  if (!confirm('Sign out of your MyDMV session?')) return;
+  Object.values(SK).forEach(k => sessionStorage.removeItem(k));
+  document.getElementById('heroSignIn').style.display = '';
+  document.getElementById('heroBridge').style.display = 'none';
+  document.getElementById('dashboard').classList.remove('visible');
+  document.getElementById('btn-my-dashboard').style.display = 'none';
+  // Reset tile text
+  document.getElementById('dashTileDesc').textContent = 'Show your license & profile ▼';
+  // Reset vision upload UI
+  document.getElementById('uploadZone').style.display = '';
+  document.getElementById('uploadSuccess').style.display = 'none';
+  document.getElementById('uploadedFileName').textContent = '—';
+  document.getElementById('visionFileInput').value = '';
+  // Reset SMS UI
+  document.getElementById('smsToggle').checked = false;
+  document.getElementById('phoneGroup').classList.remove('visible');
+  document.getElementById('phoneInput').value = '';
+  document.getElementById('smsSavedNote').classList.remove('show');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+// ════════════════════════════════════════════════
+//  VISION TEST UPLOAD
+// ════════════════════════════════════════════════
+function handleVisionUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  if (file.size > 10 * 1024 * 1024) {
+    alert('File exceeds the 10 MB limit. Please choose a smaller file.');
+    event.target.value = '';
+    return;
+  }
+  sessionStorage.setItem(SK.VISION, file.name);
+  showUploadSuccess(file.name);
+}
+function showUploadSuccess(filename) {
+  document.getElementById('uploadZone').style.display = 'none';
+  document.getElementById('uploadedFileName').textContent = filename;
+  document.getElementById('uploadSuccess').style.display = 'flex';
+}
+function removeVisionFile() {
+  sessionStorage.removeItem(SK.VISION);
+  document.getElementById('uploadSuccess').style.display = 'none';
+  document.getElementById('uploadZone').style.display = '';
+  document.getElementById('visionFileInput').value = '';
+}
+// ════════════════════════════════════════════════
+//  SMS
+// ════════════════════════════════════════════════
+function handleSmsToggle() {
+  const on = document.getElementById('smsToggle').checked;
+  sessionStorage.setItem(SK.SMS_OPT, on ? 'true' : 'false');
+  const pg = document.getElementById('phoneGroup');
+  if (on) {
+    pg.classList.add('visible');
+    setTimeout(() => document.getElementById('phoneInput').focus(), 50);
+  } else {
+    pg.classList.remove('visible');
+    sessionStorage.removeItem(SK.SMS_PHONE);
+    document.getElementById('phoneInput').value = '';
+    document.getElementById('smsSavedNote').classList.remove('show');
+  }
+}
+function savePhone() {
+  const phone = document.getElementById('phoneInput').value.trim();
+  if (phone.replace(/\D/g,'').length < 10) {
+    alert('Please enter a valid 10-digit phone number.');
+    return;
+  }
+  sessionStorage.setItem(SK.SMS_PHONE, phone);
+  document.getElementById('smsSavedNote').classList.add('show');
+}
+function formatPhone(input) {
+  let v = input.value.replace(/\D/g,'').substring(0, 10);
+  if (v.length >= 7) v = `(${v.substring(0,3)}) ${v.substring(3,6)}-${v.substring(6)}`;
+  else if (v.length >= 4) v = `(${v.substring(0,3)}) ${v.substring(3)}`;
+  else if (v.length > 0) v = `(${v}`;
+  input.value = v;
+  // Hide saved note if number is edited
+  document.getElementById('smsSavedNote').classList.remove('show');
+}
+// ════════════════════════════════════════════════
+//  ON LOAD — restore session if still valid
+// ════════════════════════════════════════════════
+(function restoreSession() {
+  if (sessionStorage.getItem(SK.AUTH) === 'true') {
+    setupDashboard();
+    // Section stays hidden by default — user clicks tile to reveal
+  }
+})();
+</script>
+
+<script type="text/javascript" charset="utf-8">
+  (function (g, e, n, es, ys) {
+    g['_genesysJs'] = e;
+    g[e] = g[e] || function () {
+      (g[e].q = g[e].q || []).push(arguments)
+    };
+    g[e].t = 1 * new Date();
+    g[e].c = es;
+    ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+  })(window, 'Genesys', 'https://apps.mypurecloud.com/genesys-bootstrap/genesys.min.js', {
+    environment: 'prod',
+    deploymentId: '69c99017-4c58-43e6-9192-e20013d81d55'
+  });
+</script>
+
+</body>
+</html>
