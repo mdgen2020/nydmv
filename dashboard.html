@@ -103,14 +103,14 @@
     <button class="nav-item">Online Transactions</button>
     <button class="nav-item">Records</button>
     <button class="nav-item">Contact or Visit</button>
-    <button class="nav-item" onclick="window.location.href='index.html'">← Back to Home</button>
+    <button class="nav-item" onclick="window.location.href='https://mdgen2020.github.io/nydmv/'">← Back to Home</button>
   </div>
 </nav>
 
 <!-- AUTH GUARD (shown if not authenticated) -->
 <div class="auth-guard" id="authGuard">
   <h3>⚠ Not Authenticated</h3>
-  <p>You must sign in to access your dashboard. <a href="index.html">Return to sign in →</a></p>
+  <p>You must sign in to access your dashboard. <a href="https://mdgen2020.github.io/nydmv/">Return to sign in →</a></p>
 </div>
 
 <!-- DASHBOARD (shown when authenticated) -->
@@ -243,7 +243,7 @@ function calcExpiration() {
 function signOut() {
   if (!confirm('Sign out of your MyDMV session?')) return;
   Object.values(SK).forEach(k => sessionStorage.removeItem(k));
-  window.location.href = 'index.html';
+  window.location.href = 'https://mdgen2020.github.io/nydmv/';
 }
 
 function handleVisionUpload(event) {
