@@ -129,7 +129,7 @@
       <div class="dash-card-body">
         <div class="info-row">
           <div class="info-label">Driver's License</div>
-          <div class="info-value" id="dlNumber">635 887 900</div>
+          <div class="info-value" id="dlNumber">DL-2847-9301-NY</div>
         </div>
         <div class="info-row">
           <div class="info-label">Expiration Date</div>
@@ -287,8 +287,19 @@ function formatPhone(input) {
 }
 </script>
 
-<!--
-  
+<script>
+  // Clear Genesys Predictive Engagement visitor cookies on every load.
+  // This forces a fresh session so action maps fire on every demo run.
+  (function clearGenesysCookies() {
+    const names = ['_genesys.deviceId', '_genesys.vid', '_genesys.visitorId', 'AWSALB', 'AWSALBCORS'];
+    const host = window.location.hostname;
+    names.forEach(name => {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + host + ';';
+    });
+  })();
+</script>
+
 <script type="text/javascript" charset="utf-8">
   (function (g, e, n, es, ys) {
     g['_genesysJs'] = e;
@@ -301,7 +312,6 @@ function formatPhone(input) {
     deploymentId: '69c99017-4c58-43e6-9192-e20013d81d55'
   });
 </script>
--->  
-  
+
 </body>
 </html>
