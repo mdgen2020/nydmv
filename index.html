@@ -289,6 +289,19 @@ function handleCreate() {
 });
 </script>
 
+<script>
+  // Clear Genesys Predictive Engagement visitor cookies on every load.
+  // This forces a fresh session so action maps fire on every demo run.
+  (function clearGenesysCookies() {
+    const names = ['_genesys.deviceId', '_genesys.vid', '_genesys.visitorId', 'AWSALB', 'AWSALBCORS'];
+    const host = window.location.hostname;
+    names.forEach(name => {
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + host + ';';
+    });
+  })();
+</script>
+  
 <script type="text/javascript" charset="utf-8">
   (function (g, e, n, es, ys) {
     g['_genesysJs'] = e;
