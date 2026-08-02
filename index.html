@@ -3,42 +3,40 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Department of Motor Vehicles</title>
+  <title>Department of Motor Vehicles — New York State</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Segoe UI', Arial, sans-serif; background: #fff; color: #222; }
     .top-bar { background: #fff; border-bottom: 1px solid #ddd; padding: 8px 24px; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #444; }
     .top-bar .left { display: flex; align-items: center; gap: 10px; }
     .ny-logo { width: 44px; }
-    .top-bar .official { font-size: 12px; color: #333; }
+    .official { font-size: 12px; color: #333; }
     .how-you-know { color: #1a4a8e; font-size: 12px; cursor: pointer; background: none; border: none; text-decoration: underline; }
     .translate-btn { display: flex; align-items: center; gap: 6px; background: none; border: 1px solid #1a4a8e; color: #1a4a8e; padding: 5px 12px; border-radius: 4px; font-size: 13px; cursor: pointer; }
     header { background: #1a4a8e; padding: 0 24px; }
     .header-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 0; }
-    .site-title { color: #fff; font-size: 22px; font-weight: 700; letter-spacing: .3px; }
+    .site-title { color: #fff; font-size: 22px; font-weight: 700; }
     .search-box { display: flex; border: none; border-radius: 2px; overflow: hidden; }
     .search-box input { padding: 8px 14px; font-size: 14px; border: none; width: 220px; outline: none; }
     .search-box button { background: #fff; border: none; padding: 8px 14px; cursor: pointer; font-size: 16px; color: #1a4a8e; }
     nav { background: #1a4a8e; border-top: 1px solid rgba(255,255,255,0.2); }
-    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; gap: 0; }
-    .nav-item { color: #fff; padding: 12px 16px; font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; display: flex; align-items: center; gap: 4px; transition: background .15s; border: none; background: none; }
+    .nav-inner { max-width: 1200px; margin: 0 auto; display: flex; }
+    .nav-item { color: #fff; padding: 12px 16px; font-size: 14px; font-weight: 500; cursor: pointer; white-space: nowrap; border: none; background: none; }
     .nav-item:hover { background: rgba(255,255,255,0.12); }
-    .nav-item .caret { font-size: 10px; opacity: .8; }
     .alert-bar { background: #fce8e8; border-bottom: 1px solid #e8b0b0; padding: 12px 24px; display: flex; align-items: flex-start; gap: 10px; font-size: 14px; }
     .alert-icon { font-size: 18px; color: #cc0000; margin-top: 1px; }
     .alert-bar strong { font-weight: 700; }
     .alert-bar a { color: #1a4a8e; font-weight: 700; }
     .hero { position: relative; background: linear-gradient(135deg, #1a1a2e 0%, #2d4a7e 60%, #e8a000 100%); min-height: 420px; display: flex; align-items: center; overflow: hidden; }
-    .hero::before { content: ''; position: absolute; inset: 0; background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="420"><defs><radialGradient id="g" cx="65%" cy="50%"><stop offset="0%25" stop-color="%23f0c040" stop-opacity=".4"/><stop offset="100%25" stop-color="%23000" stop-opacity="0"/></radialGradient></defs><rect fill="url(%23g)" width="800" height="420"/></svg>') right center / cover no-repeat; }
     .hero-content { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; padding: 60px 24px; width: 100%; }
     .hero-card { background: rgba(10,30,70,0.88); max-width: 460px; padding: 40px 36px; border-radius: 4px; }
     .hero-card h1 { color: #fff; font-size: 28px; font-weight: 700; margin-bottom: 16px; line-height: 1.25; }
     .hero-card p { color: #ccd6f0; font-size: 15px; line-height: 1.6; margin-bottom: 28px; }
-    .hero-links { display: flex; flex-direction: column; gap: 10px; }
+    .hero-links { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
     .hero-link { color: #f0c020; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; text-decoration: none; display: flex; align-items: center; gap: 8px; cursor: pointer; }
     .hero-link:hover { text-decoration: underline; }
-    .auth-btn { background: #f0c020; color: #1a1a2e; border: none; padding: 11px 22px; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 3px; letter-spacing: .3px; transition: background .15s, transform .1s; display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; }
-    .auth-btn:hover { background: #d9aa10; transform: translateY(-1px); }
+    .auth-btn { background: #f0c020; color: #1a1a2e; border: none; padding: 11px 22px; font-size: 14px; font-weight: 700; cursor: pointer; border-radius: 3px; display: inline-flex; align-items: center; gap: 8px; transition: background .15s; }
+    .auth-btn:hover { background: #d9aa10; }
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 1000; align-items: center; justify-content: center; }
     .modal-overlay.open { display: flex; }
     .modal { background: #fff; width: 100%; max-width: 440px; border-radius: 6px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); animation: slideUp .22s ease; }
@@ -46,20 +44,20 @@
     .modal-header { background: #1a4a8e; padding: 18px 24px; display: flex; align-items: center; justify-content: space-between; }
     .modal-header-left { display: flex; align-items: center; gap: 12px; }
     .modal-header h2 { color: #fff; font-size: 18px; font-weight: 700; }
-    .modal-header .ny-badge { background: #fff; color: #1a4a8e; font-size: 10px; font-weight: 900; padding: 3px 6px; border-radius: 3px; text-transform: uppercase; letter-spacing: .5px; line-height: 1.3; text-align: center; }
-    .modal-close { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; opacity: .8; line-height: 1; }
+    .ny-badge { background: #fff; color: #1a4a8e; font-size: 10px; font-weight: 900; padding: 3px 6px; border-radius: 3px; text-transform: uppercase; letter-spacing: .5px; line-height: 1.3; text-align: center; }
+    .modal-close { background: none; border: none; color: #fff; font-size: 22px; cursor: pointer; opacity: .8; }
     .modal-close:hover { opacity: 1; }
     .modal-body { padding: 28px 28px 24px; }
     .modal-body .subtitle { font-size: 13px; color: #555; margin-bottom: 22px; line-height: 1.5; }
     .form-group { margin-bottom: 18px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; color: #333; margin-bottom: 6px; }
-    .form-group input { width: 100%; padding: 10px 13px; border: 1.5px solid #bbb; border-radius: 4px; font-size: 14px; color: #222; outline: none; transition: border-color .15s; }
+    .form-group input { width: 100%; padding: 10px 13px; border: 1.5px solid #bbb; border-radius: 4px; font-size: 14px; outline: none; transition: border-color .15s; }
     .form-group input:focus { border-color: #1a4a8e; }
     .form-group input.error { border-color: #cc0000; }
     .form-error { font-size: 12px; color: #cc0000; margin-top: 4px; display: none; }
     .form-error.show { display: block; }
     .forgot-link { display: block; text-align: right; font-size: 12px; color: #1a4a8e; text-decoration: underline; cursor: pointer; margin-top: -10px; margin-bottom: 18px; }
-    .login-btn { width: 100%; background: #1a4a8e; color: #fff; border: none; padding: 12px; font-size: 15px; font-weight: 700; border-radius: 4px; cursor: pointer; letter-spacing: .3px; transition: background .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .login-btn { width: 100%; background: #1a4a8e; color: #fff; border: none; padding: 12px; font-size: 15px; font-weight: 700; border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: background .15s; }
     .login-btn:hover { background: #163d78; }
     .login-btn:disabled { background: #7a9cc8; cursor: not-allowed; }
     .spinner { width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4); border-top-color: #fff; border-radius: 50%; animation: spin .7s linear infinite; display: none; }
@@ -67,7 +65,7 @@
     .divider { text-align: center; font-size: 13px; color: #888; margin: 18px 0; position: relative; }
     .divider::before, .divider::after { content: ''; position: absolute; top: 50%; width: 42%; height: 1px; background: #ddd; }
     .divider::before { left: 0; } .divider::after { right: 0; }
-    .create-btn { width: 100%; background: #fff; color: #1a4a8e; border: 2px solid #1a4a8e; padding: 11px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; transition: background .15s; }
+    .create-btn { width: 100%; background: #fff; color: #1a4a8e; border: 2px solid #1a4a8e; padding: 11px; font-size: 14px; font-weight: 700; border-radius: 4px; cursor: pointer; }
     .create-btn:hover { background: #eef3fb; }
     .modal-footer { background: #f5f7fb; padding: 12px 28px; font-size: 12px; color: #666; border-top: 1px solid #e4e8f0; }
     .modal-footer a { color: #1a4a8e; text-decoration: underline; }
@@ -87,7 +85,7 @@
     footer { background: #1a1a2e; color: #aab; padding: 32px 24px; font-size: 13px; margin-top: 40px; }
     .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between; }
     .footer-col h4 { color: #fff; font-size: 13px; margin-bottom: 10px; text-transform: uppercase; letter-spacing: .5px; }
-    .footer-col a { display: block; color: #99a; text-decoration: none; margin-bottom: 6px; font-size: 13px; }
+    .footer-col a { display: block; color: #99a; text-decoration: none; margin-bottom: 6px; }
     .footer-col a:hover { color: #f0c020; }
     .footer-bottom { max-width: 1200px; margin: 24px auto 0; border-top: 1px solid #334; padding-top: 16px; font-size: 12px; color: #778; }
   </style>
@@ -109,22 +107,19 @@
 <header>
   <div class="header-inner">
     <div class="site-title">Department of Motor Vehicles</div>
-    <div class="search-box">
-      <input type="text" placeholder="Search DMV" />
-      <button>🔍</button>
-    </div>
+    <div class="search-box"><input type="text" placeholder="Search DMV" /><button>🔍</button></div>
   </div>
 </header>
 <nav>
   <div class="nav-inner">
-    <button class="nav-item">Licenses, Permits &amp; IDs <span class="caret">▾</span></button>
-    <button class="nav-item">Vehicles <span class="caret">▾</span></button>
-    <button class="nav-item">Online Transactions <span class="caret">▾</span></button>
-    <button class="nav-item">Records <span class="caret">▾</span></button>
-    <button class="nav-item">Register to Vote <span class="caret">▾</span></button>
-    <button class="nav-item">Contact or Visit <span class="caret">▾</span></button>
-    <button class="nav-item">About Us <span class="caret">▾</span></button>
-    <button class="nav-item" onclick="openModal()">MyDMV <span class="caret">▾</span></button>
+    <button class="nav-item">Licenses, Permits &amp; IDs</button>
+    <button class="nav-item">Vehicles</button>
+    <button class="nav-item">Online Transactions</button>
+    <button class="nav-item">Records</button>
+    <button class="nav-item">Register to Vote</button>
+    <button class="nav-item">Contact or Visit</button>
+    <button class="nav-item">About Us</button>
+    <button class="nav-item" onclick="openModal()">MyDMV ▾</button>
   </div>
 </nav>
 <div class="alert-bar">
@@ -135,7 +130,7 @@
   <div class="hero-content">
     <div class="hero-card">
       <h1>Ready to Serve New York Better</h1>
-      <p>New York State DMV has upgraded our technology to make it easier to serve you better. Our modernized system offers a more streamlined service and increased responsiveness, making it faster and easier to use.</p>
+      <p>New York State DMV has upgraded our technology to make it easier to serve you better. Our modernized system offers a more streamlined service and increased responsiveness.</p>
       <div class="hero-links">
         <a class="hero-link" onclick="openModal()"><span>→</span> SIGN INTO NY.GOV ID</a>
         <a class="hero-link" onclick="openModal()"><span>→</span> CREATE A NEW NY.GOV ID</a>
@@ -147,37 +142,34 @@
 <section class="services">
   <h2>Online Services</h2>
   <div class="services-grid">
-    <button class="service-card" type="button"><span class="icon">🪪</span><h3>Renew License</h3><p>Renew your driver license online</p></button>
-    <button class="service-card" type="button"><span class="icon">🚗</span><h3>Register Vehicle</h3><p>Register or renew registration</p></button>
-    <button class="service-card" type="button"><span class="icon">📋</span><h3>Get REAL ID</h3><p>Apply for a REAL ID compliant card</p></button>
-    <button class="service-card" type="button"><span class="icon">🔄</span><h3>Address Change</h3><p>Update your address on record</p></button>
-    <button class="service-card" type="button"><span class="icon">🏆</span><h3>Custom Plates</h3><p>Personalize your license plate</p></button>
-    <button class="service-card" type="button"><span class="icon">📝</span><h3>Driver History</h3><p>Order your driver record</p></button>
+    <button class="service-card" onclick="openModal()"><span class="icon">🪪</span><h3>Renew License</h3><p>Renew your driver license online</p></button>
+    <button class="service-card" onclick="openModal()"><span class="icon">🚗</span><h3>Register Vehicle</h3><p>Register or renew registration</p></button>
+    <button class="service-card" onclick="openModal()"><span class="icon">📋</span><h3>Get REAL ID</h3><p>Apply for a REAL ID compliant card</p></button>
+    <button class="service-card"><span class="icon">🔄</span><h3>Address Change</h3><p>Update your address on record</p></button>
+    <button class="service-card"><span class="icon">🏆</span><h3>Custom Plates</h3><p>Personalize your license plate</p></button>
+    <button class="service-card"><span class="icon">📝</span><h3>Driver History</h3><p>Order your driver record</p></button>
   </div>
 </section>
 <footer>
   <div class="footer-inner">
     <div class="footer-col"><h4>Licenses &amp; IDs</h4><a href="#">Driver License</a><a href="#">Non-Driver ID</a><a href="#">REAL ID</a><a href="#">Enhanced ID</a></div>
-    <div class="footer-col"><h4>Vehicles</h4><a href="#">Register a Vehicle</a><a href="#">Title a Vehicle</a><a href="#">Custom Plates</a><a href="#">Junking a Vehicle</a></div>
-    <div class="footer-col"><h4>Online Services</h4><a href="#">MyDMV Portal</a><a href="#">Online Transactions</a><a href="#">DMV Chat</a><a href="#">Accessibility</a></div>
-    <div class="footer-col"><h4>Contact</h4><a href="#">Find a DMV Office</a><a href="#">Make an Appointment</a><a href="#">Contact Us</a><a href="#">About DMV</a></div>
+    <div class="footer-col"><h4>Vehicles</h4><a href="#">Register a Vehicle</a><a href="#">Title a Vehicle</a><a href="#">Custom Plates</a></div>
+    <div class="footer-col"><h4>Online Services</h4><a href="#">MyDMV Portal</a><a href="#">Online Transactions</a><a href="#">DMV Chat</a></div>
+    <div class="footer-col"><h4>Contact</h4><a href="#">Find a DMV Office</a><a href="#">Make an Appointment</a><a href="#">Contact Us</a></div>
   </div>
   <div class="footer-bottom">© 2026 New York State Department of Motor Vehicles · <a href="#" style="color:#f0c020">Privacy Policy</a> · <a href="#" style="color:#f0c020">Accessibility</a></div>
 </footer>
 
 <!-- AUTH MODAL -->
 <div class="modal-overlay" id="authModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal" role="dialog" aria-modal="true">
     <div class="modal-header">
-      <div class="modal-header-left">
-        <div class="ny-badge">NY<br>GOV</div>
-        <h2 id="modalTitle">Sign in to MyDMV</h2>
-      </div>
-      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+      <div class="modal-header-left"><div class="ny-badge">NY<br>GOV</div><h2>Sign in to MyDMV</h2></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
     </div>
     <div id="loginForm">
       <div class="modal-body">
-        <p class="subtitle">Sign in with your NY.gov ID to access your DMV account, view documents, and complete transactions.</p>
+        <p class="subtitle">Sign in with your NY.gov ID to access your DMV account and complete transactions.</p>
         <div class="form-group">
           <label for="emailInput">NY.gov ID (Email Address)</label>
           <input type="email" id="emailInput" placeholder="you@example.com" autocomplete="email" />
@@ -188,9 +180,9 @@
           <input type="password" id="passwordInput" placeholder="Enter your password" autocomplete="current-password" />
           <span class="form-error" id="passwordError">Password must be at least 6 characters.</span>
         </div>
-        <a class="forgot-link" onclick="showForgot()">Forgot your password?</a>
-        <div class="form-group" id="generalErrorGroup" style="display:none;">
-          <div style="background:#fce8e8;border:1px solid #e8b0b0;border-radius:4px;padding:10px 14px;font-size:13px;color:#cc0000;">⚠ &nbsp;<strong>Authentication failed.</strong> Invalid email or password. Please try again.</div>
+        <a class="forgot-link">Forgot your password?</a>
+        <div id="generalErrorGroup" style="display:none; margin-bottom:16px;">
+          <div style="background:#fce8e8;border:1px solid #e8b0b0;border-radius:4px;padding:10px 14px;font-size:13px;color:#cc0000;">⚠ &nbsp;<strong>Authentication failed.</strong> Invalid email or password.</div>
         </div>
         <button class="login-btn" id="loginBtn" onclick="handleLogin()">
           <span id="loginBtnText">Sign In Securely</span>
@@ -199,28 +191,20 @@
         <div class="divider">or</div>
         <button class="create-btn" onclick="showCreate()">Create a New NY.gov ID</button>
       </div>
-      <div class="modal-footer">By signing in you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a> of New York State.</div>
+      <div class="modal-footer">By signing in you agree to the <a href="#">Terms of Use</a> and <a href="#">Privacy Policy</a>.</div>
     </div>
     <div class="success-panel" id="successPanel">
       <div class="check-circle">✓</div>
       <h3>Authentication Successful</h3>
-      <p>Welcome back! You are now securely signed in to your MyDMV account.</p>
+      <p>Welcome back! Redirecting you to your account...</p>
       <div class="user-badge">👤 <span id="userEmailDisplay"></span></div>
-    </div>
-    <div id="forgotPanel" style="display:none;">
-      <div class="modal-body">
-        <p class="subtitle">Enter your email address and we'll send you a link to reset your password.</p>
-        <div class="form-group"><label for="resetEmail">NY.gov ID (Email Address)</label><input type="email" id="resetEmail" placeholder="you@example.com" /></div>
-        <button class="login-btn" onclick="handleReset()">Send Reset Link</button>
-        <div style="margin-top:16px;text-align:center;"><a style="font-size:13px;color:#1a4a8e;cursor:pointer;text-decoration:underline;" onclick="showLogin()">← Back to Sign In</a></div>
-      </div>
     </div>
     <div id="createPanel" style="display:none;">
       <div class="modal-body">
         <p class="subtitle">Create your free NY.gov ID to access all New York State online services.</p>
-        <div class="form-group"><label for="newEmail">Email Address</label><input type="email" id="newEmail" placeholder="you@example.com" /></div>
-        <div class="form-group"><label for="newPassword">Choose a Password</label><input type="password" id="newPassword" placeholder="At least 8 characters" /></div>
-        <div class="form-group"><label for="confirmPassword">Confirm Password</label><input type="password" id="confirmPassword" placeholder="Re-enter password" /><span class="form-error" id="confirmError">Passwords do not match.</span></div>
+        <div class="form-group"><label>Email Address</label><input type="email" id="newEmail" placeholder="you@example.com" /></div>
+        <div class="form-group"><label>Choose a Password</label><input type="password" id="newPassword" placeholder="At least 8 characters" /></div>
+        <div class="form-group"><label>Confirm Password</label><input type="password" id="confirmPassword" placeholder="Re-enter password" /><span class="form-error" id="confirmError">Passwords do not match.</span></div>
         <button class="login-btn" onclick="handleCreate()">Create Account</button>
         <div style="margin-top:16px;text-align:center;"><a style="font-size:13px;color:#1a4a8e;cursor:pointer;text-decoration:underline;" onclick="showLogin()">← Back to Sign In</a></div>
       </div>
@@ -229,29 +213,30 @@
 </div>
 
 <script>
+const BASE = 'https://mdgen2020.github.io/nydmv/';
 const SK = { AUTH: 'dmv_authenticated', EMAIL: 'dmv_user_email' };
 
+// Route authenticated users to correct page based on email
+const ROUTES = {
+  'mdgen2020@gmail.com':          BASE + 'dashboard.html',
+  'michael.debiase@genesys.com':  BASE + 'regi.html'
+};
+
+function getRedirectUrl(email) {
+  return ROUTES[email.toLowerCase()] || BASE + 'dashboard.html';
+}
+
 function showPanel(id) {
-  ['loginForm','successPanel','forgotPanel','createPanel'].forEach(p => {
+  ['loginForm','successPanel','createPanel'].forEach(p => {
     document.getElementById(p).style.display = (p === id) ? 'block' : 'none';
   });
 }
-function showLogin()  { showPanel('loginForm'); }
-function showForgot() { showPanel('forgotPanel'); }
+function showLogin() { showPanel('loginForm'); }
 function showCreate() { showPanel('createPanel'); }
 
-function openModal() {
-  showLogin(); clearErrors();
-  document.getElementById('authModal').classList.add('open');
-  setTimeout(() => document.getElementById('emailInput').focus(), 50);
-}
-function closeModal() {
-  document.getElementById('authModal').classList.remove('open');
-  showLogin(); clearErrors();
-  document.getElementById('emailInput').value = '';
-  document.getElementById('passwordInput').value = '';
-  document.getElementById('generalErrorGroup').style.display = 'none';
-}
+function openModal() { showLogin(); clearErrors(); document.getElementById('authModal').classList.add('open'); setTimeout(() => document.getElementById('emailInput').focus(), 50); }
+function closeModal() { document.getElementById('authModal').classList.remove('open'); showLogin(); clearErrors(); document.getElementById('emailInput').value = ''; document.getElementById('passwordInput').value = ''; }
+
 document.getElementById('authModal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
@@ -264,20 +249,11 @@ function clearErrors() {
 
 function handleLogin() {
   clearErrors();
-  const email    = document.getElementById('emailInput').value.trim();
+  const email = document.getElementById('emailInput').value.trim();
   const password = document.getElementById('passwordInput').value;
   let valid = true;
-  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRx.test(email)) {
-    document.getElementById('emailInput').classList.add('error');
-    document.getElementById('emailError').classList.add('show');
-    valid = false;
-  }
-  if (password.length < 6) {
-    document.getElementById('passwordInput').classList.add('error');
-    document.getElementById('passwordError').classList.add('show');
-    valid = false;
-  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { document.getElementById('emailInput').classList.add('error'); document.getElementById('emailError').classList.add('show'); valid = false; }
+  if (password.length < 6) { document.getElementById('passwordInput').classList.add('error'); document.getElementById('passwordError').classList.add('show'); valid = false; }
   if (!valid) return;
   const btn = document.getElementById('loginBtn');
   btn.disabled = true;
@@ -291,33 +267,21 @@ function handleLogin() {
     sessionStorage.setItem(SK.EMAIL, email);
     document.getElementById('userEmailDisplay').textContent = email;
     showPanel('successPanel');
-    setTimeout(() => {
-      window.location.href = 'https://mdgen2020.github.io/nydmv/dashboard.html?user=' + encodeURIComponent(email);
-    }, 1200);
+    setTimeout(() => { window.location.href = getRedirectUrl(email) + '?user=' + encodeURIComponent(email); }, 1200);
   }, 1600);
-}
-
-function handleReset() {
-  const email = document.getElementById('resetEmail').value.trim();
-  if (!email) return;
-  alert('✉️  A password reset link has been sent to:\n\n' + email + '\n\nPlease check your inbox.');
-  showLogin();
 }
 
 function handleCreate() {
   const np = document.getElementById('newPassword').value;
   const cp = document.getElementById('confirmPassword').value;
   if (np !== cp) { document.getElementById('confirmError').classList.add('show'); return; }
-  document.getElementById('confirmError').classList.remove('show');
   const email = document.getElementById('newEmail').value.trim();
   if (!email) return;
   sessionStorage.setItem(SK.AUTH, 'true');
   sessionStorage.setItem(SK.EMAIL, email);
   document.getElementById('userEmailDisplay').textContent = email;
   showPanel('successPanel');
-  setTimeout(() => {
-    window.location.href = 'https://mdgen2020.github.io/nydmv/dashboard.html?user=' + encodeURIComponent(email);
-  }, 1200);
+  setTimeout(() => { window.location.href = getRedirectUrl(email) + '?user=' + encodeURIComponent(email); }, 1200);
 }
 
 ['emailInput','passwordInput'].forEach(id => {
@@ -325,8 +289,7 @@ function handleCreate() {
 });
 </script>
 
-<!--
-  <script type="text/javascript" charset="utf-8">
+<script type="text/javascript" charset="utf-8">
   (function (g, e, n, es, ys) {
     g['_genesysJs'] = e;
     g[e] = g[e] || function () { (g[e].q = g[e].q || []).push(arguments) };
@@ -335,12 +298,8 @@ function handleCreate() {
     ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
   })(window, 'Genesys', 'https://apps.mypurecloud.com/genesys-bootstrap/genesys.min.js', {
     environment: 'prod',
-    deploymentId: '69c99017-4c58-43e6-9192-e20013d81d55'
+    deploymentId: 'c4a67820-729a-4bd8-b3d4-75357bf4524c'
   });
-</script> 
-
--->
-  
-
+</script>
 </body>
 </html>
