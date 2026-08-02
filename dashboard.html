@@ -205,7 +205,8 @@ function calcExpiration() {
 }
 
 (function init() {
-  // Get user from URL param or sessionStorage
+  const ALLOWED = 'mdgen2020@gmail.com';
+  const BASE = 'https://mdgen2020.github.io/nydmv/';
   const params = new URLSearchParams(window.location.search);
   const urlUser = params.get('user');
   const isAuth  = sessionStorage.getItem(SK.AUTH) === 'true' || urlUser;
@@ -215,13 +216,18 @@ function calcExpiration() {
     return;
   }
 
-  // Set session if coming from redirect
   if (urlUser) {
     sessionStorage.setItem(SK.AUTH, 'true');
     sessionStorage.setItem(SK.EMAIL, decodeURIComponent(urlUser));
   }
 
   const email = sessionStorage.getItem(SK.EMAIL) || decodeURIComponent(urlUser || '');
+
+  // Redirect wrong user to regi.html
+  if (email.toLowerCase() !== ALLOWED) {
+    window.location.href = BASE + 'regi.html?user=' + encodeURIComponent(email);
+    return;
+  }
   document.getElementById('dashUserEmail').textContent = email;
   document.getElementById('expirationDate').textContent = calcExpiration();
   document.getElementById('dashboardContent').style.display = 'block';
