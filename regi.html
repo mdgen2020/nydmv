@@ -267,13 +267,31 @@ function formatPhone(input) {
 </script>
 
 <script>
-  // Clear Genesys cookies on every load for fresh action map firing
-  (function clearGenesysCookies() {
-    const names = ['_genesys.deviceId', '_genesys.vid', '_genesys.visitorId', 'AWSALB', 'AWSALBCORS'];
+  // Clear ALL Genesys session state on every load -- cookies, localStorage, sessionStorage.
+  // This forces a fresh session so action maps and AVAs fire on every demo run.
+  // NOTE: Genesys Messenger moved conversation persistence from cookies to
+  // localStorage in 2021, so cookie-clearing alone no longer resets the session --
+  // an in-progress conversation will resume from localStorage even with cookies gone.
+  (function clearGenesysSession() {
+    const cookieNames = ['_genesys.deviceId', '_genesys.vid', '_genesys.visitorId', 'AWSALB', 'AWSALBCORS'];
     const host = window.location.hostname;
-    names.forEach(name => {
+    cookieNames.forEach(name => {
       document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
       document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + host + ';';
+    });
+
+    // Genesys Messenger/Predictive Engagement stores active conversation and
+    // visitor state in localStorage/sessionStorage under keys containing
+    // "genesys" or "gc_" (varies by widget version) -- wipe anything matching.
+    [window.localStorage, window.sessionStorage].forEach(store => {
+      const toRemove = [];
+      for (let i = 0; i < store.length; i++) {
+        const key = store.key(i);
+        if (key && /genesys|_gc_|gcmc/i.test(key)) {
+          toRemove.push(key);
+        }
+      }
+      toRemove.forEach(key => store.removeItem(key));
     });
   })();
 </script>
